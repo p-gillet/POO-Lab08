@@ -12,5 +12,6 @@ public abstract class Piece {
         this.color = color;
         this.square = square;
     }
+
     abstract public boolean canMove(Square dest);
 }

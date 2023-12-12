@@ -1,5 +1,8 @@
 package engine;
 
+import chess.PieceType;
+import chess.PlayerColor;
+
 public class Board {
 
     /* nombres de lignes/colonnes du plateau */
@@ -45,5 +48,32 @@ public class Board {
         castlingSquares = null;
         enPassantSquare = null;
         initBoard();
+    }
+
+    public void setBoard() {
+        PlayerColor playerColor = PlayerColor.WHITE;
+        int line = 0;
+        int pawn = 1;
+
+        for (int i = 0; i < SIZE; ++i) {
+
+            for (int i = 0; i < SIZE; ++i) {
+                board[i][pawn].setPiece(new Pawn());
+            }
+
+            playerColor = PlayerColor.BLACK;
+            // changer line et pawn
+        }
+
+
+    }
+
+    public void setPiece(Piece p, Square to) {
+        to.setPiece(p);
+        p.setSquare(to);
+    }
+
+    public void removePiece(Square from) {
+        from.setPiece(null);
     }
 }
