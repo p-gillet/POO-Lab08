@@ -14,4 +14,12 @@ public abstract class Piece {
     }
 
     abstract public boolean canMove(Square dest);
+
+    public void setSquare(Square square) {
+        this.square = square;
+    }
+
+    public Square getSquare() {
+        return square;
+    }
 }
