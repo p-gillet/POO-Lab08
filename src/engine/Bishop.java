@@ -10,6 +10,7 @@ public class Bishop extends Piece {
 
     @Override
     public boolean canMove(Square dest) {
-        return false;
+        return !dest.isOccupied() &&
+                Math.abs((square.getX() - dest.getX())) == Math.abs(square.getY() - dest.getY());
     }
 }

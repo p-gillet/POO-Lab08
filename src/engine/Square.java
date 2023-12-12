@@ -5,6 +5,7 @@ public class Square {
     private int y; // coordonnée y de la case
     private Piece piece; // pièce sur la case
 
+
     /**
      * Constructeur à deux param&egrave;tres de la classe Square
      * @param x coordonn&eacute;e x de la case
@@ -49,5 +50,9 @@ public class Square {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+    }
+
+    public boolean isOccupied(){
+        return this.piece == null;
     }
 }
