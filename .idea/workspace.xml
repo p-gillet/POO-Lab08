@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8751810c-ba02-4b01-ab6f-fb2345345a32" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Square.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +39,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="engine" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Paul\Documents\GitHub\POO'\POO-Lab08\.idea" />
     </key>
@@ -70,7 +70,7 @@
       <updated>1701260743236</updated>
       <workItem from="1701260744570" duration="805000" />
       <workItem from="1701261561274" duration="3313000" />
-      <workItem from="1702395405014" duration="950000" />
+      <workItem from="1702395405014" duration="1083000" />
     </task>
     <servers />
   </component>
