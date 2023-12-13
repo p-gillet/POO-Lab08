@@ -12,4 +12,9 @@ public class Pawn extends Piece {
     public boolean canMove(Square dest) {
         return false;
     }
+
+    @Override
+    public PieceType getType() {
+        return PieceType.PAWN;
+    }
 }
