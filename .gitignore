@@ -1,6 +1,4 @@
 
 *.xml
 *.png
-*.xml
-*.xml
-.idea/workspace.xml
+.idea/*.xml
