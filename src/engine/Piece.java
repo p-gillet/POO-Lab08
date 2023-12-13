@@ -23,4 +23,6 @@ public abstract class Piece {
     public Square getSquare() {
         return square;
     }
+
+    public abstract PieceType getType();
 }

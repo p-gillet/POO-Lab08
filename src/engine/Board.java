@@ -75,8 +75,6 @@ public class Board {
             line = 7;
             pawn = 6;
         }
-
-
     }
 
     public void setPiece(Piece p, Square to) {
@@ -86,5 +84,9 @@ public class Board {
 
     public void removePiece(Square from) {
         from.setPiece(null);
+    }
+
+    public Square getSquare(int x, int y) {
+        return board[x][y];
     }
 }
