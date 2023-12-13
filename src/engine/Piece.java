@@ -25,4 +25,8 @@ public abstract class Piece {
     }
 
     public abstract PieceType getType();
+
+    public PlayerColor getColor() {
+        return color;
+    }
 }
