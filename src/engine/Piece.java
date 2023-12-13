@@ -14,7 +14,7 @@ public abstract class Piece {
         this.board = board;
     }
 
-    abstract public boolean canMove(Square dest);
+    public abstract boolean canMove(Square dest);
 
     public void setSquare(Square square) {
         this.square = square;

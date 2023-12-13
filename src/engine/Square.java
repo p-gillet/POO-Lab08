@@ -7,7 +7,7 @@ public class Square {
 
 
     /**
-     * Constructeur à deux param&egrave;tres de la classe Square
+     * Constructeur à deux paramètres de la classe Square
      * @param x coordonn&eacute;e x de la case
      * @param y coordonn&eacute;e y de la case
      */
@@ -18,7 +18,7 @@ public class Square {
     }
 
     /**
-     * Constructeur à trois param&egrave;tres de la classe Square
+     * Constructeur à trois paramètres de la classe Square
      * @param x coordonn&eacute;e x de la case
      * @param y coordonn&eacute;e y de la case
      * @param piece pi&egrave;ce sur la case

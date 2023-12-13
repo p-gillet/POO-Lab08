@@ -31,8 +31,7 @@ public class Board {
     }
 
     /**
-     * Méthode qui initialise le plateau en construisant
-     * les 64 cases du plateau
+     * Méthode qui initialise le plateau en construisant les 64 cases du plateau
      */
     private void initBoard(){
         for(int i = 0; i < SIZE; i++){
@@ -42,6 +41,7 @@ public class Board {
         }
     }
 
+
     public void restBoard() {
         turn = 0;
         lastPiecePlayed = null;
@@ -50,6 +50,9 @@ public class Board {
         initBoard();
     }
 
+    /**
+     * Méthode qui place les pièces à leurs positions initiales
+     */
     public void setStartingPiecePosition() {
         PlayerColor playerColor = PlayerColor.WHITE;
         int line = 0;
@@ -86,7 +89,21 @@ public class Board {
         from.setPiece(null);
     }
 
+    /**
+     * Méthode qui retourne une case du board
+     * @param x coordonnée X de la case
+     * @param y coordonnée Y de la case
+     * @return case aux coordonnées (X,Y)
+     */
     public Square getSquare(int x, int y) {
         return board[x][y];
+    }
+
+    /**
+     * Méthode pour determiner à qui s'est le tour de jouer
+     * @return la couleur du joueur à qui c'est le tour
+     */
+    protected PlayerColor colorTurn(){
+        return turn % 2 == 0 ? PlayerColor.WHITE : PlayerColor.BLACK;
     }
 }
