@@ -42,5 +42,4 @@ public class GameManager implements ChessController {
         return false;
     }
 
-
 }
