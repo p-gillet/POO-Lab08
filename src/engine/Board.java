@@ -58,7 +58,7 @@ public class Board {
         int line = 0;
         int pawn = 1;
 
-        for (int i = 0; i < SIZE; ++i) {
+        for (int i = 0; i < 2; ++i) {
 
             board[0][line].setPiece(new Rook(playerColor, board[0][line], this));
             board[1][line].setPiece(new Knight(playerColor, board[1][line], this));
@@ -71,7 +71,7 @@ public class Board {
             kings[i] = (King)board[4][line].getPiece();
 
             for (int k = 0; k < SIZE; ++k) {
-                board[i][pawn].setPiece(new Pawn(playerColor, board[k][pawn], this));
+                board[k][pawn].setPiece(new Pawn(playerColor, board[k][pawn], this));
             }
 
             playerColor = PlayerColor.BLACK;
