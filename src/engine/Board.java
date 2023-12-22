@@ -41,7 +41,6 @@ public class Board {
         }
     }
 
-
     public void restBoard() {
         turn = 0;
         lastPiecePlayed = null;
@@ -87,6 +86,11 @@ public class Board {
 
     public void removePiece(Square from) {
         from.setPiece(null);
+    }
+
+    public void movePiece(Piece p, Square to) {
+        removePiece(p.getSquare());
+        setPiece(p, to);
     }
 
     /**

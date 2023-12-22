@@ -4,9 +4,10 @@ import chess.PieceType;
 import chess.PlayerColor;
 
 public abstract class Piece {
-    PlayerColor color;
+    private final PlayerColor color;
+    private final Board board;
     Square square;
-    Board board;
+
 
     Piece(PlayerColor color, Square square, Board board){
         this.color = color;
