@@ -26,6 +26,9 @@ public class Board {
     /* pour stocker un carré concerné par un déplacement en passant*/
     private Square enPassantSquare;
 
+    /**
+     * Constructeur de la classe board, initialise le plateau
+     */
     public Board() {
         restBoard();
     }
@@ -41,6 +44,9 @@ public class Board {
         }
     }
 
+    /**
+     * Reset le plateau, reviens à l'état initial
+     */
     public void restBoard() {
         turn = 0;
         lastPiecePlayed = null;
@@ -79,15 +85,30 @@ public class Board {
         }
     }
 
+    /**
+     * Place une pièce sur un carré
+     * @param p la pièce
+     * @param to le carré de destination
+     */
     public void setPiece(Piece p, Square to) {
         to.setPiece(p);
         p.setSquare(to);
     }
 
+    /**
+     * Supprime une pièce, autrement dit la pièce n'est sur plus aucun carré
+     * @param from le carré à libérer
+     */
     public void removePiece(Square from) {
         from.setPiece(null);
     }
 
+    /**
+     * Déplace une pièce d'un carré à l'autre, si le carré de destination est occupé,
+     * sa pièce est mangée
+     * @param p la pièce à déplacer
+     * @param to le carré de destination
+     */
     public void movePiece(Piece p, Square to) {
         removePiece(p.getSquare());
         setPiece(p, to);
@@ -110,4 +131,6 @@ public class Board {
     protected PlayerColor colorTurn(){
         return turn % 2 == 0 ? PlayerColor.WHITE : PlayerColor.BLACK;
     }
+
+
 }

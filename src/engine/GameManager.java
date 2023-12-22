@@ -48,6 +48,16 @@ public class GameManager implements ChessController {
         board.movePiece(from.getPiece(), to);
     }
 
+    /**
+     * Redefinition de la méthode move() de l'interface ChessController
+     * Si le mouvement est valide déplace la pièce et return true, false sinon
+     * et aucun mouvement n'est effectué
+     * @param fromX coordonnée x de départ
+     * @param fromY coordonnée y de départ
+     * @param toX coordonnée x d'arrivée
+     * @param toY coordonnée y d'arrivée
+     * @return true si le mouvement est effectué false sinon
+     */
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
         // TODO

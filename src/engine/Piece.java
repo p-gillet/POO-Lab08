@@ -88,4 +88,12 @@ public abstract class Piece {
 
         return !checkCollision(from);
     }
+
+    /**
+     * Méthode qui retourne le plateau sur laquelle se trouve la pièce
+     * @return plateau sur lequel se trouve la pièce
+     */
+    public Board getBoard() {
+        return board;
+    }
 }

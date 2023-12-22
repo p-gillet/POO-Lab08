@@ -21,8 +21,8 @@ public class Knight extends Piece implements DistanceCheck {
      */
     @Override
     protected boolean isValidMove(Square target) {
-        int distance = getDistance(this.square, target);
-        return distance == 2;
+        Square dist = getDistance(this.square, target);
+        return dist.getX() * dist.getY() == 2;
     }
 
     @Override
