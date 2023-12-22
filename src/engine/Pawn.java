@@ -17,4 +17,19 @@ public class Pawn extends Piece {
     public PieceType getType() {
         return PieceType.PAWN;
     }
+
+    @Override
+    public boolean isValidMove(Square dest) {
+        boolean distIsValid;
+        boolean isAhead;
+        switch (color){
+            case WHITE -> {
+                isAhead     = this.square.getY() < dest.getY();
+            }
+            case BLACK -> {
+                isAhead = this.square.getY() > dest.getY();
+            }
+        }
+        return false; // yikes
+    }
 }

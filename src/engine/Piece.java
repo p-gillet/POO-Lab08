@@ -63,4 +63,5 @@ public abstract class Piece {
         }
         return false;
     }
+    public abstract boolean isValidMove(Square dest);
 }
