@@ -6,11 +6,23 @@ import chess.PlayerColor;
 public class Knight extends Piece {
     public Knight(PlayerColor color, Square square, Board board){
         super(color, square, board);
+        this.ignoresCollision = true;
     }
 
     @Override
     public boolean canMove(Square dest) {
         return false;
+    }
+
+    /**
+     * Méthode qui retourne si le déplacement est légal ou non par rapport aux déplacements propres au cavalier
+     * @param target case cible
+     * @return true si le déplacement est légal sinon false
+     */
+    @Override
+    protected boolean isValidMove(Square target) {
+        Square dist = getSquare().getDistance(target);
+        return dist.getX() * dist.getY() == 2;
     }
 
     @Override

@@ -19,7 +19,24 @@ public abstract class Piece {
         this.ignoresCollision = false;
     }
 
-    public abstract boolean canMove(Square dest);
+    /**
+     * Méthode qui retourne si la piece peut effectuer le déplacement ou non
+     * @return true si le déplacement peut etre effectué sinon false
+     */
+    public boolean canMove(Square target){
+        if(!isValidMove(target)){
+            return false;
+        }
+
+        return !checkCollision(target);
+    }
+
+    /**
+     * Méthode abstraite qui retourner si un déplacement est légal ou non
+     * @param target case cible
+     * @return true si le déplacement est légal sinon false
+     */
+    protected abstract boolean isValidMove(Square target);
 
     public void setSquare(Square square) {
         this.square = square;
