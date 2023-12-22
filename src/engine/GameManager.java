@@ -36,10 +36,21 @@ public class GameManager implements ChessController {
         }
     }
 
+    private void placePiece(Square from, Square to) {
+        //affichage de la pièce sur la case d'arrivée
+        chessView.putPiece( from.getPiece().getType(), from.getPiece().getColor(),
+                to.getX(), to.getY() );
+
+        //suppression de l'affichage de la pièce sur la case de départ
+        chessView.removePiece(from.getX(), from.getY());
+
+        //déplacement en lui-même
+        board.movePiece(from.getPiece(), to);
+    }
+
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
         // TODO
         return false;
     }
-
 }
