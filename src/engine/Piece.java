@@ -4,15 +4,19 @@ import chess.PieceType;
 import chess.PlayerColor;
 
 public abstract class Piece {
-    private final PlayerColor color;
-    private final Board board;
-    Square square;
+    private final PlayerColor color; // couleur de la pièce
+    private final Board board; // plateau de jeu sur lequel la pièce se trouve
+    Square square; // case sur laquelle se trouve la pièce
+    boolean ignoresCollision; // la pièce, peut-elle ignorer les collisions
+    int nbMove; // nombre de déplacements fait par la pièce
 
 
     Piece(PlayerColor color, Square square, Board board){
         this.color = color;
         this.square = square;
         this.board = board;
+        this.nbMove = 0;
+        this.ignoresCollision = false;
     }
 
     public abstract boolean canMove(Square dest);
