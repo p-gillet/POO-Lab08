@@ -20,18 +20,6 @@ public abstract class Piece {
     }
 
     /**
-     * Méthode qui retourne si la piece peut effectuer le déplacement ou non
-     * @return true si le déplacement peut etre effectué sinon false
-     */
-    public boolean canMove(Square target){
-        if(!isValidMove(target)){
-            return false;
-        }
-
-        return !checkCollision(target);
-    }
-
-    /**
      * Méthode abstraite qui retourner si un déplacement est légal ou non
      * @param target case cible
      * @return true si le déplacement est légal sinon false
@@ -84,5 +72,20 @@ public abstract class Piece {
             }
         }
         return false;
+    }
+
+    /**
+     * Méthode qui retourne si la piece peut effectuer le déplacement ou non
+     * Un mouvement peut être effectué lorsqu'il est :
+     * 1. Légal par rapport aux règles des échecs et
+     * 2. Il n'y a pas de collision
+     * @return true si le déplacement peut être effectué sinon false
+     */
+    public boolean canMove(Square from){
+        if(!isValidMove(from)){
+            return false;
+        }
+
+        return !checkCollision(from);
     }
 }
