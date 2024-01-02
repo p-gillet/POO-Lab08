@@ -1,8 +1,8 @@
 package engine;
 
 public interface DiagonalMove {
-    default boolean isOnDiagonal(Square src, Square dest){
-        return src.getX() - src.getY() == dest.getX() - dest.getY() ||
-                src.getX() + src.getY() == dest.getX() + dest.getY();
+    default boolean isOnDiagonal(Square from, Square to){
+        return from.getX() - from.getY() == to.getX() - to.getY() ||
+                from.getX() + from.getY() == to.getX() + to.getY();
     }
 }
