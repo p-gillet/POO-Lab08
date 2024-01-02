@@ -30,7 +30,7 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
             Point dist = getTrueDistance(this.getSquare(), target);
             return dist.x == 0
                     && ((this.nbMove == 0 && (dist.y == this.goesUp || dist.y == 2 * this.goesUp))
-                    || dist.y == 1);
+                        || dist.y == this.goesUp);
         } else {
             return false;
         }
