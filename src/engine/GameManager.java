@@ -97,9 +97,18 @@ public class GameManager implements ChessController {
             placePiece(from, to); //déplacement de la pièce
 
             // TODO gestion de la promotion
+
+            Square[] castling;
+            
             // TODO gestion de la prise en passsant
             // TODO gestion du roque
             // TODO gestion des actions à faire à la fin d'un tour
+
+            //gestion du potentiel roque
+            if((castling = board.getCastlingSquares()) != null){
+                placePiece(castling[0], castling[1]);
+                board.setCastlingSquares(null);
+            }
 
             //on stocke la dernière pièce jouée
             board.setLastPiecePlayed(to.getPiece());

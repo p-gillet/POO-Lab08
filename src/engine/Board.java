@@ -110,7 +110,7 @@ public class Board {
         boolean valid = false;
 
         //test si le déplacement peut être effectué par la pièce sélectionnée
-        //si c'est le cas il faut ensuite tester si le déplacement mettrait le roi allié en échec
+        //si c'est le cas, il faut ensuite tester si le déplacement mettrait le roi allié en échec
         if(from.getPiece().canMove(to)){
             valid = true;
 
@@ -149,6 +149,22 @@ public class Board {
     public void movePieceDummy(Piece p, Square to) {
         removePiece(p.getSquare());
         setPieceDummy(p, to);
+    }
+
+    /**
+     * Setter de l'attribut castlingSquares
+     * @param castlingSquares les carrés concernés par un roque
+     */
+    public void setCastlingSquares(Square[] castlingSquares) {
+        this.castlingSquares = castlingSquares;
+    }
+
+    /**
+     * Getter de l'attribut castlingSquares
+     * @return les carrés concernés par un roque
+     */
+    public Square[] getCastlingSquares() {
+        return castlingSquares;
     }
 
     /**
