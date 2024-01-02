@@ -1,8 +1,10 @@
 package engine;
 
+import java.awt.*;
+
 public class Square {
-    private int x; // coordonnée x de la case
-    private int y; // coordonnée y de la case
+    private final Point coord;
+
     private Piece piece; // pièce sur la case
 
 
@@ -12,8 +14,7 @@ public class Square {
      * @param y coordonn&eacute;e y de la case
      */
     public Square(int x, int y){
-        this.x = x;
-        this.y = y;
+        this.coord = new Point(x, y);
         piece = null;
     }
 
@@ -29,19 +30,19 @@ public class Square {
     }
 
     public int getX() {
-        return x;
+        return coord.x;
     }
 
     public void setX(int x) {
-        this.x = x;
+        coord.x = x;
     }
 
     public int getY() {
-        return y;
+        return coord.y;
     }
 
     public void setY(int y) {
-        this.y = y;
+        coord.y = y;
     }
 
     public Piece getPiece() {

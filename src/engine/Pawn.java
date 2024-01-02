@@ -3,6 +3,8 @@ package engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
+import java.awt.*;
+
 public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceCheck {
     private final int goesUp; // 1 si le pion va vers le haut, -1 s'il va vers le bas
     private boolean enPassantVictim; // true si le pion est une victime de la prise en passant
@@ -48,7 +50,7 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
     @Override
     public boolean canAttack(Square target) {
         if (target.isOccupied()) {
-            Square dist = getDistance(this.getSquare(), target);
+            Point dist = getDistance(this.getSquare(), target);
             return isOnDiagonal(this.getSquare(), target) &&
                     isAhead(target) &&
                     (dist.getX() == 1 && dist.getY() == 1);

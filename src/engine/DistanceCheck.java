@@ -1,5 +1,7 @@
 package engine;
 
+import java.awt.*;
+
 public interface DistanceCheck {
 
     /**
@@ -11,10 +13,10 @@ public interface DistanceCheck {
      * @param to case cible
      * @return la case nouvellement créée
      */
-    default Square getDistance(Square from, Square to){
+    default Point getDistance(Square from, Square to){
         int x = from.getX() - to.getX();
         int y = from.getY() - to.getY();
-        return new Square(Math.abs(x), Math.abs(y));
+        return new Point(Math.abs(x), Math.abs(y));
     }
 
     /**
@@ -24,9 +26,9 @@ public interface DistanceCheck {
      * @param to case cible
      * @return la case nouvellement créée
      */
-    default Square getTrueDistance(Square from, Square to) {
+    default Point getTrueDistance(Square from, Square to) {
         int x = to.getX() - from.getX();
         int y = to.getY() - from.getY();
-        return new Square(x, y);
+        return new Point(x, y);
     }
 }

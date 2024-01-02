@@ -3,6 +3,8 @@ package engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
+import java.awt.*;
+
 public class Knight extends Piece implements DistanceCheck {
     public Knight(PlayerColor color, Square square, Board board){
         super(color, square, board);
@@ -16,7 +18,7 @@ public class Knight extends Piece implements DistanceCheck {
      */
     @Override
     protected boolean isValidMove(Square target) {
-        Square dist = getDistance(this.getSquare(), target);
+        Point dist = getDistance(this.getSquare(), target);
         return dist.getX() * dist.getY() == 2;
     }
 
