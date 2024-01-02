@@ -9,21 +9,12 @@ public class Rook extends Piece implements LinearMove {
     }
 
     @Override
-    public boolean canMove(Square dest) {
-        return false;
-    }
-
-    @Override
     public PieceType getType() {
         return PieceType.ROOK;
     }
 
     @Override
-    public boolean isOnline(Square from, Square to) {
-        return LinearMove.super.isOnline(from, to);
-    }
-    @Override
     public boolean isValidMove(Square dest) {
-        return isOnline(this.square, dest) && !checkCollision(dest);
+        return isOnline(this.getSquare(), dest);
     }
 }

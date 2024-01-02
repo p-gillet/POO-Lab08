@@ -3,14 +3,14 @@ package engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-public class Queen extends Piece {
+public class Queen extends Piece implements DiagonalMove, LinearMove{
     public Queen(PlayerColor color, Square square, Board board){
         super(color, square, board);
     }
 
     @Override
-    public boolean canMove(Square dest) {
-        return false;
+    protected boolean isValidMove(Square target) {
+        return (isOnline(this.getSquare(), target) || isOnDiagonal(this.getSquare(), target));
     }
 
     @Override

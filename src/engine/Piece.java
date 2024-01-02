@@ -6,7 +6,7 @@ import chess.PlayerColor;
 public abstract class Piece {
     private final PlayerColor color; // couleur de la pièce
     private final Board board; // plateau de jeu sur lequel la pièce se trouve
-    Square square; // case sur laquelle se trouve la pièce
+    private Square square; // case sur laquelle se trouve la pièce
     boolean ignoresCollision; // la pièce, peut-elle ignorer les collisions
     int nbMove; // nombre de déplacements fait par la pièce
 

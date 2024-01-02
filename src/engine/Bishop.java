@@ -3,15 +3,14 @@ package engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-public class Bishop extends Piece {
+public class Bishop extends Piece implements DiagonalMove {
     public Bishop(PlayerColor color, Square square, Board board){
         super(color, square, board);
     }
 
     @Override
-    public boolean canMove(Square dest) {
-        return !dest.isOccupied() &&
-                Math.abs((square.getX() - dest.getX())) == Math.abs(square.getY() - dest.getY());
+    protected boolean isValidMove(Square target) {
+        return isOnDiagonal(this.getSquare(), target);
     }
 
     @Override

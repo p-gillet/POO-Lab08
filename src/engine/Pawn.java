@@ -13,27 +13,23 @@ public class Pawn extends Piece implements LinearMove {
     }
 
     @Override
-    public boolean canMove(Square dest) {
-        return false;
-    }
-
-    @Override
     public PieceType getType() {
         return PieceType.PAWN;
     }
 
+
     @Override
     public boolean isValidMove(Square dest) {
-        if (isOnline(this.square, dest) && !checkCollision(dest) && this.square.getX() == dest.getX()) {
-            int dist = Math.abs(this.square.getY() - dest.getY());
+        if (isOnline(this.getSquare(), dest) && this.getSquare().getX() == dest.getX()) {
+            int dist = Math.abs(this.getSquare().getY() - dest.getY());
             if (((this.nbMove == 0 && (dist == 1 || dist == 2)) || dist == 1)) {
                 //Check si la case est en face du pion
                 switch (this.getColor()) {
                     case WHITE -> {
-                        return this.square.getY() < dest.getY();//Check si la case est en face du pion
+                        return this.getSquare().getY() < dest.getY();//Check si la case est en face du pion
                     }
                     case BLACK -> {
-                        return this.square.getY() > dest.getY();
+                        return this.getSquare().getY() > dest.getY();
                     }
                 }
             } else {

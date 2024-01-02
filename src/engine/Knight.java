@@ -9,11 +9,6 @@ public class Knight extends Piece implements DistanceCheck {
         this.ignoresCollision = true;
     }
 
-    @Override
-    public boolean canMove(Square dest) {
-        return false;
-    }
-
     /**
      * Méthode qui retourne si le déplacement est légal ou non par rapport aux déplacements propres au cavalier
      * @param target case cible
@@ -21,7 +16,7 @@ public class Knight extends Piece implements DistanceCheck {
      */
     @Override
     protected boolean isValidMove(Square target) {
-        Square dist = getDistance(this.square, target);
+        Square dist = getDistance(this.getSquare(), target);
         return dist.getX() * dist.getY() == 2;
     }
 
