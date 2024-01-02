@@ -19,22 +19,9 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
         return PieceType.PAWN;
     }
 
-    public boolean isAhead(Square target){
-        switch (this.getColor()) {
-            case WHITE -> {
-                return this.getSquare().getY() < target.getY();
-            }
-            case BLACK -> {
-                return this.getSquare().getY() > target.getY();
-            }
-            default -> {
-                return false;
-            }
-        }
-    }
-
     @Override
     public boolean isValidMove(Square target) {
+<<<<<<< Updated upstream
         if (nbMove == 1) {
             ignoresCollision = true;
         }
@@ -57,6 +44,15 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
             return isOnDiagonal(this.getSquare(), target) &&
                     isAhead(target) &&
                     (dist.getX() == 1 && dist.getY() == 1);
+=======
+        if (threatensSquare(target)){
+            return true;
+        } else if (isOnline(this.getSquare(), target)) {
+            Point dist = getTrueDistance(this.getSquare(), target);
+            return dist.x == 0
+                    && ((this.nbMove == 0 && (dist.y == this.goesUp || dist.y == 2 * this.goesUp))
+                    || dist.y == 1);
+>>>>>>> Stashed changes
         } else {
             return false;
         }
@@ -70,7 +66,7 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
     public boolean threatensSquare(Square target){
         Point dist = getTrueDistance(this.getSquare(), target);
 
-        return dist.getY() == goesUp && (dist.getX() == 1 || dist.getX() == -1);
+        return target.isOccupied() && dist.getY() == goesUp && (dist.getX() == 1 || dist.getX() == -1);
     }
 
     /**

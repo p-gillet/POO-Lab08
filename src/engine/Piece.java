@@ -100,10 +100,6 @@ public abstract class Piece {
         return !checkCollision(to);
     }
 
-    public boolean canAttack(Square to){
-        return canMove(to) && to.isOccupied();
-    }
-
     /**
      * Méthode qui retourne le plateau sur laquelle se trouve la pièce
      * @return plateau sur lequel se trouve la pièce
