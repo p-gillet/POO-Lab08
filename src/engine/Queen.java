@@ -4,7 +4,7 @@ import chess.PieceType;
 import chess.PlayerColor;
 
 public class Queen extends Piece implements DiagonalMove, LinearMove{
-    public Queen(PlayerColor color, Square square, Board board){
+    public Queen(Square square, PlayerColor color, Board board){
         super(color, square, board);
     }
 
@@ -17,4 +17,8 @@ public class Queen extends Piece implements DiagonalMove, LinearMove{
     public PieceType getType() {
         return PieceType.QUEEN;
     }
+
+    public String textValue(){ return "Queen";}
+
+    public String toString(){ return textValue();}
 }

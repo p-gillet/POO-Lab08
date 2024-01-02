@@ -65,18 +65,19 @@ public class Board {
 
         for (int i = 0; i < 2; ++i) {
 
-            board[0][line].setPiece(new Rook(playerColor, board[0][line], this));
-            board[1][line].setPiece(new Knight(playerColor, board[1][line], this));
-            board[2][line].setPiece(new Bishop(playerColor, board[2][line], this));
-            board[3][line].setPiece(new Queen(playerColor, board[3][line], this));
-            board[4][line].setPiece(new King(playerColor, board[4][line], this));
-            board[5][line].setPiece(new Bishop(playerColor, board[5][line], this));
-            board[6][line].setPiece(new Knight(playerColor, board[6][line], this));
-            board[7][line].setPiece(new Rook(playerColor, board[7][line], this));
+            board[0][line].setPiece(new Rook(board[0][line], playerColor, this));
+            board[1][line].setPiece(new Knight(board[1][line], playerColor, this));
+            board[2][line].setPiece(new Bishop(board[2][line], playerColor, this));
+            board[3][line].setPiece(new Queen(board[3][line], playerColor, this));
+            board[4][line].setPiece(new King(board[4][line], playerColor, this));
+            board[5][line].setPiece(new Bishop(board[5][line], playerColor, this));
+            board[6][line].setPiece(new Knight(board[6][line], playerColor, this));
+            board[7][line].setPiece(new Rook(board[7][line], playerColor, this));
+
             kings[i] = (King)board[4][line].getPiece();
 
             for (int k = 0; k < SIZE; ++k) {
-                board[k][pawn].setPiece(new Pawn(playerColor, board[k][pawn], this));
+                board[k][pawn].setPiece(new Pawn(board[k][pawn], playerColor, this));
             }
 
             playerColor = PlayerColor.BLACK;

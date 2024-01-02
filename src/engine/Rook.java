@@ -4,7 +4,7 @@ import chess.PieceType;
 import chess.PlayerColor;
 
 public class Rook extends Piece implements LinearMove {
-    public Rook(PlayerColor color, Square square, Board board){
+    public Rook(Square square, PlayerColor color, Board board){
         super(color, square, board);
     }
 
@@ -17,4 +17,8 @@ public class Rook extends Piece implements LinearMove {
     public boolean isValidMove(Square dest) {
         return isOnline(this.getSquare(), dest);
     }
+
+    public String textValue(){ return "Rook";}
+
+    public String toString(){ return textValue();}
 }

@@ -4,7 +4,7 @@ import chess.PieceType;
 import chess.PlayerColor;
 
 public class Bishop extends Piece implements DiagonalMove {
-    public Bishop(PlayerColor color, Square square, Board board){
+    public Bishop(Square square, PlayerColor color, Board board){
         super(color, square, board);
     }
 
@@ -17,4 +17,8 @@ public class Bishop extends Piece implements DiagonalMove {
     public PieceType getType() {
         return PieceType.BISHOP;
     }
+
+    public String textValue(){ return "Bishop";}
+
+    public String toString(){ return textValue();}
 }

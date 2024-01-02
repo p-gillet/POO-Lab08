@@ -99,9 +99,8 @@ public class GameManager implements ChessController {
             // TODO gestion de la promotion
 
             Square[] castling;
-            
+
             // TODO gestion de la prise en passsant
-            // TODO gestion du roque
             // TODO gestion des actions à faire à la fin d'un tour
 
             //gestion du potentiel roque

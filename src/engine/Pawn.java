@@ -8,7 +8,7 @@ import java.awt.*;
 public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceCheck {
     private final int goesUp; // 1 si le pion va vers le haut, -1 s'il va vers le bas
     private boolean enPassantVictim; // true si le pion est une victime de la prise en passant
-    public Pawn(PlayerColor color, Square square, Board board){
+    public Pawn(Square square, PlayerColor color, Board board){
         super(color, square, board);
         goesUp = color == PlayerColor.WHITE ? 1 : -1;
         enPassantVictim = false;
@@ -35,6 +35,10 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
 
     @Override
     public boolean isValidMove(Square target) {
+        if (nbMove == 1) {
+            ignoresCollision = true;
+        }
+
         if (isOnline(this.getSquare(), target) || canAttack(target)) {
             Point dist = getDistance(this.getSquare(), target);
             if ((dist.x == 0 && (this.nbMove == 0 && (dist.y == 1 || dist.y == 2)) || dist.y == 1)) {
@@ -53,7 +57,6 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
             return isOnDiagonal(this.getSquare(), target) &&
                     isAhead(target) &&
                     (dist.getX() == 1 && dist.getY() == 1);
-
         } else {
             return false;
         }
@@ -69,4 +72,20 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
 
         return dist.getY() == goesUp && (dist.getX() == 1 || dist.getX() == -1);
     }
+
+    /**
+     * Méthode qui retourne si le pion peut être promu ou non
+     * @return true si le pion peut être promu sinon false
+     */
+    public boolean canBePromoted(){
+        if(goesUp == 1){
+            return getSquare().getY() == 7;
+        }else {
+            return getSquare().getY() == 0;
+        }
+    }
+
+    public String textValue(){ return "Pawn";}
+
+    public String toString(){ return textValue();}
 }

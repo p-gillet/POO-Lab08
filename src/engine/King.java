@@ -13,7 +13,7 @@ public class King extends Piece implements DistanceCheck{
      * @param square case sur laquelle se trouve la pièce
      * @param board plateau de jeu sur lequel la pièce se trouve
      */
-    public King(PlayerColor color, Square square, Board board){
+    public King(Square square, PlayerColor color, Board board){
         super(color, square, board);
         ignoresCollision = true;
     }

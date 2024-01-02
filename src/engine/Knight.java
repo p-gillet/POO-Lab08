@@ -6,7 +6,7 @@ import chess.PlayerColor;
 import java.awt.*;
 
 public class Knight extends Piece implements DistanceCheck {
-    public Knight(PlayerColor color, Square square, Board board){
+    public Knight(Square square, PlayerColor color, Board board){
         super(color, square, board);
         this.ignoresCollision = true;
     }
@@ -26,4 +26,8 @@ public class Knight extends Piece implements DistanceCheck {
     public PieceType getType() {
         return PieceType.KNIGHT;
     }
+
+    public String textValue(){ return "Knight";}
+
+    public String toString(){ return textValue();}
 }
