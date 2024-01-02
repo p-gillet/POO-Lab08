@@ -35,7 +35,7 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
 
     @Override
     public boolean isValidMove(Square target) {
-        if (isOnline(this.getSquare(), target)) {
+        if (isOnline(this.getSquare(), target) || canAttack(target)) {
             Point dist = getDistance(this.getSquare(), target);
             if ((dist.x == 0 && (this.nbMove == 0 && (dist.y == 1 || dist.y == 2)) || dist.y == 1)) {
                 return isAhead(target);
