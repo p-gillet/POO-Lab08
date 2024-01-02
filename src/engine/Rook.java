@@ -19,8 +19,8 @@ public class Rook extends Piece implements LinearMove {
     }
 
     @Override
-    public boolean isOnline(Square src, Square dest) {
-        return LinearMove.super.isOnline(src, dest);
+    public boolean isOnline(Square from, Square to) {
+        return LinearMove.super.isOnline(from, to);
     }
     @Override
     public boolean isValidMove(Square dest) {
