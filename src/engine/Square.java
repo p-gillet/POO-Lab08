@@ -54,6 +54,6 @@ public class Square {
     }
 
     public boolean isOccupied(){
-        return this.piece == null;
+        return this.piece != null;
     }
 }

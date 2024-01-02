@@ -86,13 +86,118 @@ public class Board {
     }
 
     /**
+     * Méthode qui permet de vérifier si un mouvement est valide ou pas
+     * @param from carré de départ
+     * @param to carré d'arrivée
+     * @return true si le mouvement est possible, false sinon
+     */
+    public boolean move(Square from, Square to){
+        //si le carré de départ n'a pas de pièce => false
+        if(from.getPiece() == null){
+            return false;
+        }
+
+        //si le carré de départ est occupé par une pièce adverse => false
+        if(from.getPiece().getColor() != colorTurn()){
+            return false;
+        }
+
+        //si on essaie de manger une pièce alliée => false
+        if(to.getPiece() != null && to.getPiece().getColor() == from.getPiece().getColor()){
+            return false;
+        }
+
+        boolean valid = false;
+
+        //test si le déplacement peut être effectué par la pièce sélectionnée
+        //si c'est le cas il faut ensuite tester si le déplacement mettrait le roi allié en échec
+        if(from.getPiece().canMove(to)){
+            valid = true;
+
+            //on effectue un déplacement factice
+            Piece deadPiece = to.getPiece();
+            movePieceDummy(from.getPiece(), to);
+            if(isChecked()){ //si le roi allié est en échec le déplacement n'est pas valide
+                valid = false;
+                enPassantSquare = null;
+            }
+
+            //dans tous les cas le déplacement est annulé
+            movePieceDummy(to.getPiece(), from);
+            if(deadPiece != null){
+                setPieceDummy(deadPiece, to);
+            }
+        }
+        return valid;
+    }
+
+    /**
+     * Place une pièce sur un carré, version utilisée lors de la detection d'un échec
+     * @param p la pièce
+     * @param to le carré de destination
+     */
+    public void setPieceDummy(Piece p, Square to){
+        to.setPiece(p);
+        p.setSquare(to, false);
+    }
+
+    /**
+     * Déplace une pièce d'un carré à l'autre, version utilisée lors de la detection d'un échec
+     * @param p la pièce à déplacer
+     * @param to le carré de destination
+     */
+    public void movePieceDummy(Piece p, Square to) {
+        removePiece(p.getSquare());
+        setPieceDummy(p, to);
+    }
+
+    /**
+     * Méthode pour tester si le roi actuel est en échec
+     * @return true si check détecté false sinon
+     */
+    public boolean isChecked(){
+        King kingToCheck;
+        if(kings[0].getColor() == colorTurn()){
+            kingToCheck = kings[0];
+        }else{
+            kingToCheck = kings[1];
+        }
+        return isSquareAttacked(kingToCheck.getSquare());
+    }
+
+    /**
+     * Méthode pour determiner si un carré est attaqué
+     * @param target carré à vérifier
+     * @return true si le carré est attaqué false sinon
+     */
+    public boolean isSquareAttacked(Square target){
+        //itération sur toutes les pièces se trouvant sur le board
+        for(Square[] row : board){
+            for(Square square : row){
+                if(square.isOccupied() && square.getPiece().getColor() != colorTurn()){
+                    //le pion menace de manière particulière, on le traite séparamment
+                    if(square.getPiece() instanceof Pawn pawn){
+                        if(pawn.threatensSquare(target)){
+                            return true;
+                        }
+                        //si une pièce adverse peut se déplacer sur le carré testé alors il est menacé
+                    } else if (square.getPiece().canMove(target)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Place une pièce sur un carré
      * @param p la pièce
      * @param to le carré de destination
      */
     public void setPiece(Piece p, Square to) {
         to.setPiece(p);
-        p.setSquare(to);
+        p.setSquare(to,true);
     }
 
     /**
@@ -132,5 +237,33 @@ public class Board {
         return turn % 2 == 0 ? PlayerColor.WHITE : PlayerColor.BLACK;
     }
 
+    /**
+     * Setter de l'attribut turn
+     * @param turn le nouveau tour
+     */
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
 
+    /**
+     * Getter de l'attribut turn
+     * @return le tour actuel
+     */
+    public int getTurn(){
+        return turn;
+    }
+
+    /**
+     * Setter de l'attribut lastPiecePlayed
+     * @param lastPiecePlayed la dernière piece jouée
+     */
+    public void setLastPiecePlayed(Piece lastPiecePlayed) {
+        this.lastPiecePlayed = lastPiecePlayed;
+    }
+
+    /**
+     * Getter de l'attribut lastPiecePlayed
+     * @return la dernière pièce jouée
+     */
+    public Piece getLastPiecePlayed(){return lastPiecePlayed;}
 }

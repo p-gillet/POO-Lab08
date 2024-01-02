@@ -26,8 +26,16 @@ public abstract class Piece {
      */
     protected abstract boolean isValidMove(Square target);
 
-    public void setSquare(Square square) {
-        this.square = square;
+    /**
+     * Méthode qui affecte une case à la pièce
+     * @param s case sur laquelle se trouve la pièce
+     * @param increase est-ce que le nombre de déplacement doit être incrémenté ou non
+     */
+    public void setSquare(Square s, boolean increase){
+        square = s;
+        if(increase){
+            nbMove++;
+        }
     }
 
     public Square getSquare() {
@@ -41,6 +49,10 @@ public abstract class Piece {
     }
 
     protected boolean checkCollision(Square dest){
+        if(ignoresCollision){
+            return false;
+        }
+
         int srcX = square.getX();
         int srcY = square.getY();
         int destX = dest.getX();

@@ -58,4 +58,15 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
             return false;
         }
     }
+
+    /**
+     * Méthode qui retourne si le pion peut attaquer la case cible ou non
+     * @param target case cible
+     * @return true si le pion peut attaquer la case cible sinon false
+     */
+    public boolean threatensSquare(Square target){
+        Point dist = getTrueDistance(this.getSquare(), target);
+
+        return dist.getY() == goesUp && (dist.getX() == 1 || dist.getX() == -1);
+    }
 }
