@@ -81,12 +81,15 @@ public abstract class Piece {
      * 2. Il n'y a pas de collision
      * @return true si le déplacement peut être effectué sinon false
      */
-    public boolean canMove(Square from){
-        if(!isValidMove(from)){
+    public boolean canMove(Square to){
+        if(!isValidMove(to)){
             return false;
         }
+        return !checkCollision(to);
+    }
 
-        return !checkCollision(from);
+    public boolean canAttack(Square to){
+        return canMove(to) && to.isOccupied();
     }
 
     /**

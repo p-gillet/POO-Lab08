@@ -3,7 +3,7 @@ package engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-public class Pawn extends Piece implements LinearMove {
+public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceCheck {
     private final int goesUp; // 1 si le pion va vers le haut, -1 s'il va vers le bas
     private boolean enPassantVictim; // true si le pion est une victime de la prise en passant
     public Pawn(PlayerColor color, Square square, Board board){
@@ -17,25 +17,44 @@ public class Pawn extends Piece implements LinearMove {
         return PieceType.PAWN;
     }
 
+    public boolean isAhead(Square target){
+        switch (this.getColor()) {
+            case WHITE -> {
+                return this.getSquare().getY() < target.getY();
+            }
+            case BLACK -> {
+                return this.getSquare().getY() > target.getY();
+            }
+            default -> {
+                return false;
+            }
+        }
+    }
 
+    //Implémenter DistanceCheck ?
     @Override
-    public boolean isValidMove(Square dest) {
-        if (isOnline(this.getSquare(), dest) && this.getSquare().getX() == dest.getX()) {
-            int dist = Math.abs(this.getSquare().getY() - dest.getY());
+    public boolean isValidMove(Square target) {
+        if (isOnline(this.getSquare(), target) && this.getSquare().getX() == target.getX()) {
+            int dist = Math.abs(this.getSquare().getY() - target.getY());
             if (((this.nbMove == 0 && (dist == 1 || dist == 2)) || dist == 1)) {
-                //Check si la case est en face du pion
-                switch (this.getColor()) {
-                    case WHITE -> {
-                        return this.getSquare().getY() < dest.getY();//Check si la case est en face du pion
-                    }
-                    case BLACK -> {
-                        return this.getSquare().getY() > dest.getY();
-                    }
-                }
+                return isAhead(target);
             } else {
                 return false;
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean canAttack(Square target) {
+        if (target.isOccupied()) {
+            Square dist = getDistance(this.getSquare(), target);
+            return isOnDiagonal(this.getSquare(), target) &&
+                    isAhead(target) &&
+                    (dist.getX() == 1 && dist.getY() == 1);
+
+        } else {
+            return false;
+        }
     }
 }
