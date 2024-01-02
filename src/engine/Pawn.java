@@ -21,30 +21,9 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
 
     @Override
     public boolean isValidMove(Square target) {
-<<<<<<< Updated upstream
         if (nbMove == 1) {
             ignoresCollision = true;
         }
-
-        if (isOnline(this.getSquare(), target) || canAttack(target)) {
-            Point dist = getDistance(this.getSquare(), target);
-            if ((dist.x == 0 && (this.nbMove == 0 && (dist.y == 1 || dist.y == 2)) || dist.y == 1)) {
-                return isAhead(target);
-            } else {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean canAttack(Square target) {
-        if (target.isOccupied()) {
-            Point dist = getDistance(this.getSquare(), target);
-            return isOnDiagonal(this.getSquare(), target) &&
-                    isAhead(target) &&
-                    (dist.getX() == 1 && dist.getY() == 1);
-=======
         if (threatensSquare(target)){
             return true;
         } else if (isOnline(this.getSquare(), target)) {
@@ -52,7 +31,6 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
             return dist.x == 0
                     && ((this.nbMove == 0 && (dist.y == this.goesUp || dist.y == 2 * this.goesUp))
                     || dist.y == 1);
->>>>>>> Stashed changes
         } else {
             return false;
         }
