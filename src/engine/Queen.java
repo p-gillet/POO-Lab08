@@ -10,7 +10,7 @@ public class Queen extends Piece implements DiagonalMove, LinearMove{
 
     @Override
     protected boolean isValidMove(Square target) {
-        return (isOnline(this.getSquare(), target) || isOnDiagonal(this.getSquare(), target));
+        return (isOnLine(this.getSquare(), target) || isOnDiagonal(this.getSquare(), target));
     }
 
     @Override

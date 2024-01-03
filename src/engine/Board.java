@@ -1,6 +1,5 @@
 package engine;
 
-import chess.PieceType;
 import chess.PlayerColor;
 
 public class Board {
@@ -169,6 +168,35 @@ public class Board {
     }
 
     /**
+     * Setter de l'attribut castlingSquares
+     * @param enPassantSquare le carré concerné par une capture en passant
+     */
+    public void setEnPassantSquare(Square enPassantSquare) {
+        this.enPassantSquare = enPassantSquare;
+    }
+
+    /**
+     * Getter de l'attribut enPassantSquare
+     * @return le carré concerné par une capture en passant
+     */
+    public Square getEnPassantSquare() {
+        return enPassantSquare;
+    }
+
+    /**
+     * Actions à faire à la toute fin d'un tour
+     */
+    public void beforeNextTurnAction(){
+        if(lastPiecePlayed != null){
+            //si la pièce est un pion qui pouvait être capturée en passant et que le tour
+            //est terminé alors il ne peut plus être capturé en passant
+            if(lastPiecePlayed instanceof Pawn pawn && pawn.getEnPassantVictim()){
+                pawn.setEnPassantVictim(false);
+            }
+        }
+    }
+
+    /**
      * Méthode pour tester si le roi actuel est en échec
      * @return true si check détecté false sinon
      */
@@ -205,6 +233,33 @@ public class Board {
             }
         }
         return false;
+    }
+
+    /**
+     * Vérifie si un carré est occupé par un pion pouvant être promu
+     * @param square le carré à vérifier
+     * @return true si la promotion peut avoir lieu, false sinon
+     */
+    public boolean canPromote(Square square) {
+        if(square.getPiece() instanceof Pawn pawn){
+            return pawn.canBePromoted();
+        }
+        return false;
+    }
+
+    /**
+     * Méthode pour effectuer une promotion
+     * @param square le carré sur lequel la promotion a lieu
+     * @return un tableau de pièce contenant les choix possibles de la promotion
+     */
+    public Piece[] promote(Square square){
+        PlayerColor color = square.getPiece().getColor();
+        return new Piece[]{
+                new Queen(square, color, this),
+                new Knight(square, color, this),
+                new Rook(square, color, this),
+                new Bishop(square, color, this)
+        };
     }
 
     /**

@@ -7,7 +7,7 @@ public interface LinearMove {
      * @param to la case cible
      * @return true si la case ciblée est sur la même ligne, sinon false
      */
-    default boolean isOnline(Square from, Square to){
+    default boolean isOnLine(Square from, Square to){
         return from.getX() == to.getX() || from.getY() == to.getY();
     }
 }

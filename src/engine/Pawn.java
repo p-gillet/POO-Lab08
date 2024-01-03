@@ -21,19 +21,31 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
 
     @Override
     public boolean isValidMove(Square target) {
+        Point dist = getTrueDistance(this.getSquare(), target);
+
         if (nbMove == 1) {
             ignoresCollision = true;
         }
-        if (threatensSquare(target)){
-            return true;
-        } else if (isOnline(this.getSquare(), target)) {
-            Point dist = getTrueDistance(this.getSquare(), target);
-            return dist.x == 0
-                    && ((this.nbMove == 0 && (dist.y == this.goesUp || dist.y == 2 * this.goesUp))
-                        || dist.y == this.goesUp);
-        } else {
-            return false;
+
+        if (dist.getY() == goesUp) {
+            // vérification si la case n'est pas occupée et que la pièce va tout droit
+            if (isOnLine(getSquare(), target) && !target.isOccupied()) {
+                return true;
+            }
+
+            // vérification si la pièce va en diagonale et que la prise en passant peut se faire
+            if (isOnDiagonal(getSquare(), target) && (target.isOccupied() || checkEnPassant(target))) {
+                return true;
+            }
         }
+
+        // vérification si le pion peut être mangé avec la prise en passant
+        if (nbMove == 0 && isOnLine(getSquare(), target) && dist.getY() == goesUp * 2 && dist.getX() == 0) {
+            enPassantVictim = true;
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -57,6 +69,41 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
         }else {
             return getSquare().getY() == 0;
         }
+    }
+
+    /**
+     * Méthode qui retourne si le pion peut faire une prise en passant
+     * @param target case cible
+     * @return true si le pion peut faire la prise en passant sinon false
+     */
+    private boolean checkEnPassant(Square target){
+        int newY = target.getY() - goesUp;
+
+        Square squareBefore = getBoard().getSquare(target.getX(), newY);
+        Piece victimPawn = squareBefore.getPiece();
+
+        if(!(victimPawn instanceof Pawn) || !((Pawn)victimPawn).enPassantVictim){
+            return false;
+        }
+
+        getBoard().setEnPassantSquare(squareBefore);
+        return true;
+    }
+
+    /**
+     * Méthode qui affecte si le pion est une victime de prise en passant ou non
+     * @param enPassantVictim true si le pion est une victime de prise en passant sinon false
+     */
+    public void setEnPassantVictim(boolean enPassantVictim) {
+        this.enPassantVictim = enPassantVictim;
+    }
+
+    /**
+     * Méthode qui retourne si le pion est une victime de prise en passant ou non
+     * @return true si le pion est une victime de prise en passant sinon false
+     */
+    public boolean getEnPassantVictim(){
+        return enPassantVictim;
     }
 
     public String textValue(){ return "Pawn";}

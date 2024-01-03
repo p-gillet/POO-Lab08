@@ -15,7 +15,7 @@ public class Rook extends Piece implements LinearMove {
 
     @Override
     public boolean isValidMove(Square dest) {
-        return isOnline(this.getSquare(), dest);
+        return isOnLine(this.getSquare(), dest);
     }
 
     public String textValue(){ return "Rook";}

@@ -97,17 +97,31 @@ public class GameManager implements ChessController {
             placePiece(from, to); //déplacement de la pièce
 
             // TODO gestion de la promotion
+//            //gestion de la potentielle promotion
+//            if(board.canPromote(to)){
+//                Piece[] choices = board.promote(to);
+//                Piece choice = chessView.askUser("Promotion", "Choose your piece", choices);
+//                removePiece(to);
+//                setPiece(choice, to);
+//            }
 
+            Square enPassant;
             Square[] castling;
 
-            // TODO gestion de la prise en passsant
-            // TODO gestion des actions à faire à la fin d'un tour
+            //gestion du potentiel en passant
+            if((enPassant = board.getEnPassantSquare()) != null){
+                removePiece(enPassant);
+                board.setEnPassantSquare(null);
+            }
 
             //gestion du potentiel roque
             if((castling = board.getCastlingSquares()) != null){
                 placePiece(castling[0], castling[1]);
                 board.setCastlingSquares(null);
             }
+
+            //action a effectué à la toute fin du tour
+            board.beforeNextTurnAction();
 
             //on stocke la dernière pièce jouée
             board.setLastPiecePlayed(to.getPiece());
@@ -119,6 +133,24 @@ public class GameManager implements ChessController {
             displayMsg = board.isChecked();
             valid = true;
         }
-        return false;
+
+        if(displayMsg){
+            chessView.displayMessage("CHECK!!!");
+        }
+        return valid;
+    }
+
+    /**
+     * Pour positionner une pièce
+     * @param piece la pièce elle-même
+     * @param square le carré sur lequel se trouve de la pièce
+     */
+    private void setPiece(Piece piece, Square square){
+        //affichage de la pièce
+        chessView.putPiece(piece.getType(), piece.getColor(),
+                square.getX(), square.getY() );
+
+        //placement de la pièce sur le board
+        board.setPiece(piece, square);
     }
 }
