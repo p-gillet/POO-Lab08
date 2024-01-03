@@ -15,11 +15,6 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
     }
 
     @Override
-    public PieceType getType() {
-        return PieceType.PAWN;
-    }
-
-    @Override
     public boolean isValidMove(Square target) {
         Point dist = getTrueDistance(this.getSquare(), target);
 
@@ -104,6 +99,11 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
      */
     public boolean getEnPassantVictim(){
         return enPassantVictim;
+    }
+
+    @Override
+    public PieceType getType() {
+        return PieceType.PAWN;
     }
 
     public String textValue(){ return "Pawn";}

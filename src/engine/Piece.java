@@ -1,9 +1,10 @@
 package engine;
 
+import chess.ChessView;
 import chess.PieceType;
 import chess.PlayerColor;
 
-public abstract class Piece {
+public abstract class Piece implements ChessView.UserChoice {
     private final PlayerColor color; // couleur de la pièce
     private final Board board; // plateau de jeu sur lequel la pièce se trouve
     private Square square; // case sur laquelle se trouve la pièce

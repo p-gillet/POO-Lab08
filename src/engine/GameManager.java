@@ -24,7 +24,7 @@ public class GameManager implements ChessController {
     public void newGame() {
         newGamePressed = true;
         displayMsg = false;
-        board.restBoard();
+        board.resetBoard();
         placePieces();
     }
 
@@ -97,13 +97,13 @@ public class GameManager implements ChessController {
             placePiece(from, to); //déplacement de la pièce
 
             // TODO gestion de la promotion
-//            //gestion de la potentielle promotion
-//            if(board.canPromote(to)){
-//                Piece[] choices = board.promote(to);
-//                Piece choice = chessView.askUser("Promotion", "Choose your piece", choices);
-//                removePiece(to);
-//                setPiece(choice, to);
-//            }
+            //gestion de la potentielle promotion
+            if(board.canPromote(to)){
+                Piece[] choices = board.promote(to);
+                Piece choice = chessView.askUser("Promotion", "Choose your piece", choices);
+                removePiece(to);
+                setPiece(choice, to);
+            }
 
             Square enPassant;
             Square[] castling;

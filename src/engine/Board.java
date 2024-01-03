@@ -29,7 +29,7 @@ public class Board {
      * Constructeur de la classe board, initialise le plateau
      */
     public Board() {
-        restBoard();
+        resetBoard();
     }
 
     /**
@@ -46,7 +46,7 @@ public class Board {
     /**
      * Reset le plateau, reviens à l'état initial
      */
-    public void restBoard() {
+    public void resetBoard() {
         turn = 0;
         lastPiecePlayed = null;
         castlingSquares = null;
