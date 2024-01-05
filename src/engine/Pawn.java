@@ -51,7 +51,7 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
     public boolean threatensSquare(Square target){
         Point dist = getTrueDistance(this.getSquare(), target);
 
-        return target.isOccupied() && dist.getY() == goesUp && (dist.getX() == 1 || dist.getX() == -1);
+        return dist.getY() == goesUp && (dist.getX() == 1 || dist.getX() == -1);
     }
 
     /**
