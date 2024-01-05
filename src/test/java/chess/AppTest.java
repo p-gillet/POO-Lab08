@@ -22,8 +22,8 @@ public class AppTest
         assertNull(board.getLastPiecePlayed());
         assertNull(board.getCastlingSquares());
         assertNull(board.getEnPassantSquare());
-        for (int i = 0; i < Board.SIZE; i++) {
-            for (int j = 0; j < Board.SIZE; j++) {
+        for (int i = 0; i < board.getSize(); i++) {
+            for (int j = 0; j < board.getSize(); j++) {
                 assertNotNull(board.getSquare(i, j));
             }
         }
@@ -165,7 +165,7 @@ public class AppTest
         assertTrue(board.getSquare(5, 0).getPiece() instanceof Bishop);
         assertTrue(board.getSquare(6, 0).getPiece() instanceof Knight);
         assertTrue(board.getSquare(7, 0).getPiece() instanceof Rook);
-        for (int i = 0; i < Board.SIZE; i++) {
+        for (int i = 0; i < board.getSize(); i++) {
             assertEquals(PlayerColor.WHITE, board.getSquare(i, 0).getPiece().getColor());
         }
 
@@ -176,11 +176,11 @@ public class AppTest
         assertTrue(board.getSquare(4, 7).getPiece() instanceof King);
         assertTrue(board.getSquare(5, 7).getPiece() instanceof Bishop);
         assertTrue(board.getSquare(6, 7).getPiece() instanceof Knight);
-        for (int i = 0; i < Board.SIZE; i++) {
+        for (int i = 0; i < board.getSize(); i++) {
             assertEquals(PlayerColor.BLACK, board.getSquare(i, 7).getPiece().getColor());
         }
 
-        for (int i = 0; i < Board.SIZE; i++) {
+        for (int i = 0; i < board.getSize(); i++) {
             assertTrue(board.getSquare(i, 1).getPiece() instanceof Pawn);
             assertTrue(board.getSquare(i, 6).getPiece() instanceof Pawn);
         }

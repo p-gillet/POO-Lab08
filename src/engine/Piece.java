@@ -49,15 +49,15 @@ public abstract class Piece implements ChessView.UserChoice {
         return color;
     }
 
-    protected boolean checkCollision(Square dest){
+    protected boolean checkCollision(Square to){
         if(ignoresCollision){
             return false;
         }
 
         int srcX = square.getX();
         int srcY = square.getY();
-        int destX = dest.getX();
-        int destY = dest.getY();
+        int destX = to.getX();
+        int destY = to.getY();
 
         int xDirection = destX-srcX;
         int yDirection = destY-srcY;

@@ -93,10 +93,12 @@ public class GameManager implements ChessController {
         Square from = board.getSquare(fromX, fromY);
         Square to = board.getSquare(toX, toY);
 
+        Square enPassant;
+        Square[] castling;
+
         if(board.move(from, to)) { //si le move est valide on rentre dans le if
             placePiece(from, to); //déplacement de la pièce
 
-            // TODO gestion de la promotion
             //gestion de la potentielle promotion
             if(board.canPromote(to)){
                 Piece[] choices = board.promote(to);
@@ -104,9 +106,6 @@ public class GameManager implements ChessController {
                 removePiece(to);
                 setPiece(choice, to);
             }
-
-            Square enPassant;
-            Square[] castling;
 
             //gestion du potentiel en passant
             if((enPassant = board.getEnPassantSquare()) != null){

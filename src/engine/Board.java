@@ -133,22 +133,22 @@ public class Board {
 
     /**
      * Place une pièce sur un carré, version utilisée lors de la detection d'un échec
-     * @param p la pièce
+     * @param piece la pièce
      * @param to le carré de destination
      */
-    public void setPieceDummy(Piece p, Square to){
-        to.setPiece(p);
-        p.setSquare(to, false);
+    public void setPieceDummy(Piece piece, Square to){
+        to.setPiece(piece);
+        piece.setSquare(to, false);
     }
 
     /**
      * Déplace une pièce d'un carré à l'autre, version utilisée lors de la detection d'un échec
-     * @param p la pièce à déplacer
+     * @param piece la pièce à déplacer
      * @param to le carré de destination
      */
-    public void movePieceDummy(Piece p, Square to) {
-        removePiece(p.getSquare());
-        setPieceDummy(p, to);
+    public void movePieceDummy(Piece piece, Square to) {
+        removePiece(piece.getSquare());
+        setPieceDummy(piece, to);
     }
 
     /**
@@ -264,12 +264,12 @@ public class Board {
 
     /**
      * Place une pièce sur un carré
-     * @param p la pièce
+     * @param piece la pièce
      * @param to le carré de destination
      */
-    public void setPiece(Piece p, Square to) {
-        to.setPiece(p);
-        p.setSquare(to,true);
+    public void setPiece(Piece piece, Square to) {
+        to.setPiece(piece);
+        piece.setSquare(to,true);
     }
 
     /**
@@ -283,12 +283,12 @@ public class Board {
     /**
      * Déplace une pièce d'un carré à l'autre, si le carré de destination est occupé,
      * sa pièce est mangée
-     * @param p la pièce à déplacer
+     * @param piece la pièce à déplacer
      * @param to le carré de destination
      */
-    public void movePiece(Piece p, Square to) {
-        removePiece(p.getSquare());
-        setPiece(p, to);
+    public void movePiece(Piece piece, Square to) {
+        removePiece(piece.getSquare());
+        setPiece(piece, to);
     }
 
     /**
