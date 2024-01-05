@@ -36,8 +36,8 @@ public class GameManager implements ChessController {
         board.setStartingPiecePosition();
 
         //affichage des pièces
-        for (int i = 0; i < Board.SIZE; i++) {
-            for (int j = 0; j < Board.SIZE; j++) {
+        for (int i = 0; i < board.getSize() ; i++) {
+            for (int j = 0; j < board.getSize(); j++) {
                 Square square = board.getSquare(i, j);
                 if (square.getPiece() != null) {
                     chessView.putPiece(square.getPiece().getType(), square.getPiece().getColor(), i, j);

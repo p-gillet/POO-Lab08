@@ -5,7 +5,7 @@ import chess.PlayerColor;
 public class Board {
 
     /* nombres de lignes/colonnes du plateau */
-    public final static int SIZE = 8;
+    private final static int SIZE = 8;
 
     /* le plateau en lui-même (8 x 8) */
     private final Square[][] board = new Square[SIZE][SIZE];
@@ -338,4 +338,10 @@ public class Board {
      * @return la dernière pièce jouée
      */
     public Piece getLastPiecePlayed(){return lastPiecePlayed;}
+
+    /**
+     * Getter de l'attribut SIZE
+     * @return la taille d'une rangée
+     */
+    public int getSize(){return SIZE;}
 }
