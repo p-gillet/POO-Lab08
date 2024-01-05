@@ -1,10 +1,17 @@
+/**
+ * @author Louis Haye
+ * @author Paul Gillet
+ */
+
 package engine;
 
 import chess.PieceType;
 import chess.PlayerColor;
-
 import java.awt.*;
 
+/**
+ * Classe représentant le roi
+ */
 public class King extends Piece implements DistanceCheck{
     
     /**
@@ -77,12 +84,24 @@ public class King extends Piece implements DistanceCheck{
         return true;
     }
 
+    /**
+     * Méthode qui retourne le type de la pièce
+     * @return retourne le type enum KING
+     */
     @Override
     public PieceType getType() {
         return PieceType.KING;
     }
 
+    /**
+     * Méthode retournant le nom de la pièce
+     * @return nom de la pièce
+     */
     public String textValue(){ return "King";}
 
+    /**
+     * Méthode toString de la classe
+     * @return chaine de caractère
+     */
     public String toString(){ return textValue();}
 }

@@ -1,5 +1,13 @@
+/**
+ * @author Louis Haye
+ * @author Paul Gillet
+ */
+
 package engine;
 
+/**
+ * Interface pour les mouvements diagonaux
+ */
 public interface DiagonalMove {
     /**
      * Méthode qui retourne un bool pour savoir si une case ciblée est sur la diagonale de celle actuelle

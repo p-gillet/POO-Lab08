@@ -1,5 +1,13 @@
+/**
+ * @author Louis Haye
+ * @author Paul Gillet
+ */
+
 package engine;
 
+/**
+ * Interface pour les mouvements linéaires
+ */
 public interface LinearMove {
     /**
      * Méthode qui retourne un bool pour savoir si une case ciblée est sur la même ligne de celle actuelle

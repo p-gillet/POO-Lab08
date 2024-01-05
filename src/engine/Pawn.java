@@ -1,19 +1,38 @@
+/**
+ * @author Louis Haye
+ * @author Paul Gillet
+ */
+
 package engine;
 
 import chess.PieceType;
 import chess.PlayerColor;
-
 import java.awt.*;
 
+/**
+ * Classe représentant le pion
+ */
 public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceCheck {
     private final int goesUp; // 1 si le pion va vers le haut, -1 s'il va vers le bas
     private boolean enPassantVictim; // true si le pion est une victime de la prise en passant
+
+    /**
+     * Constructeur de pion
+     * @param color couleur de la pièce
+     * @param square case sur laquelle se trouve la pièce
+     * @param board plateau de jeu sur lequel la pièce se trouve
+     */
     public Pawn(Square square, PlayerColor color, Board board){
         super(color, square, board);
         goesUp = color == PlayerColor.WHITE ? 1 : -1;
         enPassantVictim = false;
     }
 
+    /**
+     * Méthode qui retourne si le déplacement est légal ou non par rapport aux déplacements propre au pion
+     * @param target case cible
+     * @return true si le déplacement est légal sinon false
+     */
     @Override
     public boolean isValidMove(Square target) {
         Point dist = getTrueDistance(this.getSquare(), target);
@@ -101,12 +120,24 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
         return enPassantVictim;
     }
 
+    /**
+     * Méthode qui retourne le type de la pièce
+     * @return retourne le type enum PAWN
+     */
     @Override
     public PieceType getType() {
         return PieceType.PAWN;
     }
 
+    /**
+     * Méthode retournant le nom de la pièce
+     * @return nom de la pièce
+     */
     public String textValue(){ return "Pawn";}
 
+    /**
+     * Méthode toString de la classe
+     * @return chaine de caractère
+     */
     public String toString(){ return textValue();}
 }

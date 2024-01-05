@@ -1,7 +1,15 @@
+/**
+ * @author Louis Haye
+ * @author Paul Gillet
+ */
+
 package engine;
 
 import java.awt.*;
 
+/**
+ * Interface qui permet de trouver les distances entre deux cases
+ */
 public interface DistanceCheck {
 
     /**

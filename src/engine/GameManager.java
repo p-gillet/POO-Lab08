@@ -1,3 +1,8 @@
+/**
+ * @author Louis Haye
+ * @author Paul Gillet
+ */
+
 package engine;
 
 import chess.ChessController;

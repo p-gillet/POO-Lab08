@@ -1,9 +1,17 @@
+/**
+ * @author Louis Haye
+ * @author Paul Gillet
+ */
+
 package engine;
 
 import chess.ChessView;
 import chess.PieceType;
 import chess.PlayerColor;
 
+/**
+ * Classe abstraite représentant une pièce quelconque
+ */
 public abstract class Piece implements ChessView.UserChoice {
     private final PlayerColor color; // couleur de la pièce
     private final Board board; // plateau de jeu sur lequel la pièce se trouve
@@ -11,8 +19,16 @@ public abstract class Piece implements ChessView.UserChoice {
     boolean ignoresCollision; // la pièce, peut-elle ignorer les collisions
     int nbMove; // nombre de déplacements fait par la pièce
 
+    /**
+     *  Constructeur de la classe Piece
+     * @param square la case sur laquelle se trouve la pièce
+     * @param color couleur de la pièce
+     * @param board plateau de jeu sur laquelle elle se trouve
+     */
+    Piece(PlayerColor color, Square square, Board board) throws RuntimeException {
+        if (square == null || color == null)
+            throw new RuntimeException("Construction de la pièce invalide");
 
-    Piece(PlayerColor color, Square square, Board board){
         this.color = color;
         this.square = square;
         this.board = board;
@@ -39,25 +55,43 @@ public abstract class Piece implements ChessView.UserChoice {
         }
     }
 
+    /**
+     * Méthode qui retourne la case sur laquelle se trouve la pièce
+     * @return case sur laquelle se trouve la pièce
+     */
     public Square getSquare() {
         return square;
     }
 
+    /**
+     * Méthode abstraite qui retourne le type de la pièce
+     * @return type de la pièce
+     */
     public abstract PieceType getType();
 
+    /**
+     * Méthode qui retourne la couleur de la pièce
+     * @return couleur de la pièce
+     */
     public PlayerColor getColor() {
         return color;
     }
 
-    protected boolean checkCollision(Square to){
+    /**
+     * Méthode qui retourne si la pièce entre en collision avec une autre pièce ou non
+     * @param target case cible
+     * @return true si la pièce entre en collision avec une autre pièce, false si elle ne rencontre aucune pièce
+     * ou si elle ignore les collisions
+     */
+    protected boolean checkCollision(Square target){
         if(ignoresCollision){
             return false;
         }
 
         int srcX = square.getX();
         int srcY = square.getY();
-        int destX = to.getX();
-        int destY = to.getY();
+        int destX = target.getX();
+        int destY = target.getY();
 
         int xDirection = destX-srcX;
         int yDirection = destY-srcY;
