@@ -9,7 +9,7 @@ import chess.PlayerColor;
 
 public class Board {
 
-    /* nombres de lignes/colonnes du plateau */
+    /* nombre de lignes/colonnes du plateau */
     private final static int SIZE = 8;
 
     /* le plateau en lui-même (8 x 8) */

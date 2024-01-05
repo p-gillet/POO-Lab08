@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit test for simple App.
+ * Tests pour le jeu d'échec
  */
 public class AppTest 
 {
