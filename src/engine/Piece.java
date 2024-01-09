@@ -37,7 +37,7 @@ public abstract class Piece implements ChessView.UserChoice {
     }
 
     /**
-     * Méthode abstraite qui retourner si un déplacement est légal ou non
+     * Méthode abstraite qui retourne si un déplacement est légal ou non
      * @param target case cible
      * @return true si le déplacement est légal sinon false
      */

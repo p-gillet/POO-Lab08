@@ -15,9 +15,9 @@ public class Bishop extends Piece implements DiagonalMove {
 
     /**
      * Constructeur de fou
-     * @param square case sur laquelle elle est
-     * @param color couleur de la pièce
-     * @param board plateau de jeu
+     * @param square la case de départ
+     * @param color la couleur de la pièce
+     * @param board le plateau de jeu
      */
     public Bishop(Square square, PlayerColor color, Board board){
         super(color, square, board);
@@ -25,7 +25,7 @@ public class Bishop extends Piece implements DiagonalMove {
 
     /**
      * Méthode qui retourne si le déplacement est légal ou non par rapport aux déplacements propre au fou
-     * @param target case cible
+     * @param target la case cible
      * @return true si le déplacement est légal sinon false
      */
     @Override

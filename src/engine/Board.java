@@ -49,7 +49,7 @@ public class Board {
     }
 
     /**
-     * Reset le plateau, reviens à l'état initial
+     * Reset le plateau, retour à l'état initial
      */
     public void resetBoard() {
         turn = 0;
@@ -60,7 +60,7 @@ public class Board {
     }
 
     /**
-     * Méthode qui place les pièces à leurs positions initiales
+     * Méthode qui place les pièces à leur position initiale
      */
     public void setStartingPiecePosition() {
         PlayerColor playerColor = PlayerColor.WHITE;
@@ -92,11 +92,11 @@ public class Board {
 
     /**
      * Méthode qui permet de vérifier si un mouvement est valide ou pas
-     * @param from carré de départ
-     * @param to carré d'arrivée
+     * @param from la case de départ
+     * @param to la case d'arrivée
      * @return true si le mouvement est possible, false sinon
      */
-    public boolean move(Square from, Square to){
+    public boolean checkMovement(Square from, Square to){
         //si le carré de départ n'a pas de pièce => false
         if(from.getPiece() == null){
             return false;
@@ -137,9 +137,9 @@ public class Board {
     }
 
     /**
-     * Place une pièce sur un carré, version utilisée lors de la detection d'un échec
-     * @param piece la pièce
-     * @param to le carré de destination
+     * Place une pièce factice sur une case, version utilisée lors de la detection d'un échec
+     * @param piece la pièce factice
+     * @param to la case de destination
      */
     public void setPieceDummy(Piece piece, Square to){
         to.setPiece(piece);
@@ -147,9 +147,9 @@ public class Board {
     }
 
     /**
-     * Déplace une pièce d'un carré à l'autre, version utilisée lors de la detection d'un échec
+     * Déplace une pièce d'une case à l'autre, version utilisée lors de la detection d'un échec
      * @param piece la pièce à déplacer
-     * @param to le carré de destination
+     * @param to la case de destination
      */
     public void movePieceDummy(Piece piece, Square to) {
         removePiece(piece.getSquare());
@@ -158,7 +158,7 @@ public class Board {
 
     /**
      * Setter de l'attribut castlingSquares
-     * @param castlingSquares les carrés concernés par un roque
+     * @param castlingSquares les cases concernées par un roque
      */
     public void setCastlingSquares(Square[] castlingSquares) {
         this.castlingSquares = castlingSquares;
@@ -166,15 +166,15 @@ public class Board {
 
     /**
      * Getter de l'attribut castlingSquares
-     * @return les carrés concernés par un roque
+     * @return les cases concernées par un roque
      */
     public Square[] getCastlingSquares() {
         return castlingSquares;
     }
 
     /**
-     * Setter de l'attribut castlingSquares
-     * @param enPassantSquare le carré concerné par une capture en passant
+     * Setter de l'attribut enPassantSquare
+     * @param enPassantSquare la case concernée par une capture en passant
      */
     public void setEnPassantSquare(Square enPassantSquare) {
         this.enPassantSquare = enPassantSquare;

@@ -53,8 +53,8 @@ public class GameManager implements ChessController {
 
     /**
      * Méthode privée pour le déplacement d'une pièce
-     * @param from carré de départ
-     * @param to carré d'arrivée
+     * @param from case de départ
+     * @param to case ciblée
      */
     private void placePiece(Square from, Square to) {
         //affichage de la pièce sur la case d'arrivée
@@ -70,7 +70,7 @@ public class GameManager implements ChessController {
 
     /**
      * Suppression d'une pièce
-     * @param from le carré de la pièce a supprimer
+     * @param from la case de la pièce à supprimer
      */
     private void removePiece(Square from) {
         //suppression de l'affichage de la pièce
@@ -101,7 +101,7 @@ public class GameManager implements ChessController {
         Square enPassant;
         Square[] castling;
 
-        if(board.move(from, to)) { //si le move est valide on rentre dans le if
+        if(board.checkMovement(from, to)) { //si le move est valide on rentre dans le if
             placePiece(from, to); //déplacement de la pièce
 
             //gestion de la potentielle promotion
@@ -145,9 +145,9 @@ public class GameManager implements ChessController {
     }
 
     /**
-     * Pour positionner une pièce
-     * @param piece la pièce elle-même
-     * @param square le carré sur lequel se trouve de la pièce
+     * Setter pour positionner une pièce sur une case
+     * @param piece la pièce
+     * @param square la case ciblée
      */
     private void setPiece(Piece piece, Square square){
         //affichage de la pièce

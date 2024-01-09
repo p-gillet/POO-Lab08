@@ -9,6 +9,7 @@ public class Main {
         // 1. Création du contrôleur pour gérer le jeu d’échecs
         // Instanciation d'un ChessController
         ChessController controller = new GameManager();
+
         // 2. Création de la vue désirée
         // Selon l'argument passé en ligne de commande:
         //  - Pas d'argument -> gui (par défaut)
@@ -26,6 +27,7 @@ public class Main {
         } else {
             throw new RuntimeException("Usage: java Main <console|gui>");
         }
+
         // 3 . Lancement du programme
         controller.start(view);
     }

@@ -12,17 +12,17 @@ public interface ChessView {
 
   /**
    * Enlève l'affichage de toute pièce se trouvant sur la case donnée.
-   * @param x
-   * @param y
+   * @param x la coordonée x de la case
+   * @param y la coordonée y de la case
    */
   void removePiece(int x, int y);
 
   /**
    * Affiche la pièce demandée sur la case fournie.
-   * @param type
-   * @param color
-   * @param x
-   * @param y
+   * @param type le type de la pièce
+   * @param color la couleur de la pièce
+   * @param x la coordonée x de la case
+   * @param y la coordonée y de la case
    */
   void putPiece(PieceType type, PlayerColor color, int x, int y);
 

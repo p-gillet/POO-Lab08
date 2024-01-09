@@ -15,6 +15,9 @@ public class AppTest
 
     //////////////////////////// v TESTS DE LA CLASSE BOARD v ////////////////////////////
 
+    /**
+     * Test la création du plateau de jeu
+     */
     @Test
     public void testBoardCreation() {
         Board board = new Board();
@@ -29,6 +32,9 @@ public class AppTest
         }
     }
 
+    /**
+     * Test la réinitialisation du plateau de jeu
+     */
     @Test
     public void testResetBoard() {
         Board board = new Board();
@@ -43,6 +49,9 @@ public class AppTest
         assertNull(board.getEnPassantSquare());
     }
 
+    /**
+     * Test si le changement de couleur après chaque tour fonctionne
+     */
     @Test
     public void testColorTurn() {
         class TestBoard extends Board {
@@ -63,6 +72,9 @@ public class AppTest
         assertEquals(board.colorTurn(), PlayerColor.BLACK);
     }
 
+    /**
+     * Test le getter pour les cases
+     */
     @Test
     public void testGetSquare() {
         Board board = new Board();
@@ -71,6 +83,9 @@ public class AppTest
         assertEquals(4, square.getY());
     }
 
+    /**
+     * Test le déplacement de pièce
+     */
     @Test
     public void testMovePiece() {
         Board board = new Board();
@@ -84,6 +99,9 @@ public class AppTest
         assertEquals(piece, to.getPiece());
     }
 
+    /**
+     * Test du déplacement de pièce en cas d'échec
+     */
     @Test
     public void testProtectionOfKing() {
         Board board = new Board();
@@ -97,9 +115,12 @@ public class AppTest
         board.movePiece(board.getSquare(3,5).getPiece(), board.getSquare(1, 3));
 
         // Le roi blanc est en échec si le pion bouge alors le mouvement est impossible
-        assertFalse(board.move(board.getSquare(3, 1), board.getSquare(3, 3)));
+        assertFalse(board.checkMovement(board.getSquare(3, 1), board.getSquare(3, 3)));
     }
 
+    /**
+     * Test du placement de pièce sur une case
+     */
     @Test
     public void testSetPiece() {
         Board board = new Board();
@@ -109,6 +130,9 @@ public class AppTest
         assertEquals(piece, square.getPiece());
     }
 
+    /**
+     * Test la suppression d'une pièce
+     */
     @Test
     public void testRemovePiece() {
         Board board = new Board();
@@ -118,6 +142,9 @@ public class AppTest
         assertNull(square.getPiece());
     }
 
+    /**
+     * Test du roque
+     */
     @Test
     public void testGetSetCastlingSquares() {
         Board board = new Board();
@@ -126,6 +153,9 @@ public class AppTest
         assertArrayEquals(squares, board.getCastlingSquares());
     }
 
+    /**
+     * Test de la prise en passant
+     */
     @Test
     public void testGetSetEnPassantSquare() {
         Board board = new Board();
@@ -134,6 +164,9 @@ public class AppTest
         assertEquals(square, board.getEnPassantSquare());
     }
 
+    /**
+     * Test de la dernière pièce jouée
+     */
     @Test
     public void testGetSetLastPiecePlayed() {
         Board board = new Board();
@@ -143,6 +176,9 @@ public class AppTest
         assertEquals(piece, board.getLastPiecePlayed());
     }
 
+    /**
+     * Test pour la définition du nombre de tour
+     */
     @Test
     public void testGetSetTurn() {
         Board board = new Board();
@@ -153,6 +189,9 @@ public class AppTest
         assertEquals(2, board.getTurn());
     }
 
+    /**
+     * Test de la position de départ des pièces
+     */
     @Test
     public void testPiecesStartPosition() {
         Board board = new Board();
@@ -186,6 +225,9 @@ public class AppTest
         }
     }
 
+    /**
+     * Test la promotion d'un pion
+     */
     @Test
     public void testCanPromote() {
         Board board = new Board();
@@ -210,6 +252,9 @@ public class AppTest
         assertFalse(board.canPromote(square));
     }
 
+    /**
+     * Test la promotion d'un pion
+     */
     @Test
     public void testPromote() {
         Board board = new Board();
@@ -227,6 +272,9 @@ public class AppTest
                 choices[3] instanceof Rook || choices[3] instanceof Bishop);
     }
 
+    /**
+     * Test du déplacement de pièce
+     */
     @Test
     public void testMove() {
         Board board = new Board();
@@ -234,25 +282,36 @@ public class AppTest
 
         Square from = board.getSquare(4, 3);
         Square to = board.getSquare(4, 4);
-        assertFalse(board.move(from, to));
+        assertFalse(board.checkMovement(from, to));
 
         from = board.getSquare(4, 6);
         to = board.getSquare(4, 4);
-        assertFalse(board.move(from, to));
+        assertFalse(board.checkMovement(from, to));
 
         Square square = board.getSquare(0, 2);
         Pawn pawn = new Pawn(square, PlayerColor.WHITE, board);
         board.setPiece(pawn,square);
         from = board.getSquare(0, 1);
         to = board.getSquare(0, 2);
-        assertFalse(board.move(from, to));
+        assertFalse(board.checkMovement(from, to));
 
         from = board.getSquare(4, 1);
         to = board.getSquare(4, 3);
-        assertTrue(board.move(from, to));
+        assertTrue(board.checkMovement(from, to));
     }
 
     //////////////////////////// ^ TESTS DE LA CLASSE BOARD ^ ////////////////////////////
+
+
+
+    //////////////////////////// v TESTS DES PIECES DE JEU  v ////////////////////////////
+    /**
+     * Test pour chaque type de pièce:
+     * - déplacements propre à la pièce
+     * - le getter pour son type
+     * - le getter pour son nom
+     * - sa méthode toString
+     */
 
     //////////////////////////// v TESTS DE LA REINE  v ////////////////////////////
 
@@ -356,11 +415,11 @@ public class AppTest
         // Test déplacement non valide avec une pièce qui bloque le passage
         Pawn blockingPawn = new Pawn(board.getSquare(3, 4), PlayerColor.WHITE, board);
         board.setPiece(blockingPawn, board.getSquare(3, 4));
-        assertFalse(board.move(testKing.getSquare(), board.getSquare(3, 4)));
+        assertFalse(board.checkMovement(testKing.getSquare(), board.getSquare(3, 4)));
 
         // Test déplacement en échec
         board.setPiece(new Pawn(board.getSquare(4, 5), PlayerColor.BLACK, board), board.getSquare(4, 4));
-        assertFalse(board.move(testKing.getSquare(), board.getSquare(4, 4)));
+        assertFalse(board.checkMovement(testKing.getSquare(), board.getSquare(4, 4)));
     }
 
     @Test
@@ -520,7 +579,7 @@ public class AppTest
             }
 
             @Override
-            public boolean move(Square from, Square to) {
+            public boolean checkMovement(Square from, Square to) {
                 if(from.getPiece() == null){
                     return false;
                 }
@@ -568,7 +627,7 @@ public class AppTest
         // Test mouvement en passant valide
         assertTrue(whitePawn.isValidMove(board.getSquare(3, 5)));
 
-        board.move(whitePawn.getSquare(), board.getSquare(3, 5));
+        board.checkMovement(whitePawn.getSquare(), board.getSquare(3, 5));
 
         // Validation du mouvement en passant
         assertNull(board.getSquare(3, 4).getPiece());
@@ -849,4 +908,6 @@ public class AppTest
     }
 
     //////////////////////////// ^ TESTS DE LA TOUR  ^ ////////////////////////////
+
+    //////////////////////////// ^ TESTS DES PIECES DE JEU  ^ ////////////////////////////
 }

@@ -27,7 +27,7 @@ public class King extends Piece implements DistanceCheck{
 
     /**
      * Méthode qui retourne si le déplacement est légal ou non par rapport aux déplacements propre au roi
-     * @param target case cible
+     * @param target case ciblée
      * @return true si le déplacement est légal sinon false
      */
     @Override
