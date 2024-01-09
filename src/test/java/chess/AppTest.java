@@ -307,7 +307,7 @@ public class AppTest
     //////////////////////////// v TESTS DES PIECES DE JEU  v ////////////////////////////
     /**
      * Test pour chaque type de pièce:
-     * - déplacements propre à la pièce
+     * - les déplacements propres à la pièce et autres cas spéciaux
      * - le getter pour son type
      * - le getter pour son nom
      * - sa méthode toString
