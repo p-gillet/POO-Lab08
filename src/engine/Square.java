@@ -5,7 +5,7 @@
 
 package engine;
 
-import java.awt.*;
+import java.awt.Point;
 
 /**
  * Classe représentant une case
