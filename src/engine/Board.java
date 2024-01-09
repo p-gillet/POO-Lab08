@@ -7,6 +7,9 @@ package engine;
 
 import chess.PlayerColor;
 
+/**
+ * Classe représentant un plateau d'échec virtuel
+ */
 public class Board {
 
     /* nombre de lignes/colonnes du plateau */

@@ -8,6 +8,9 @@ package engine;
 import chess.ChessController;
 import chess.ChessView;
 
+/**
+ * Classe qui gère le jeu et qui permet de lier la partie logique avec les vues
+ */
 public class GameManager implements ChessController {
     private Board board;
     private ChessView chessView;
