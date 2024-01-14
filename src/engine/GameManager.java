@@ -16,7 +16,7 @@ public class GameManager implements ChessController {
     private ChessView chessView;
 
     private boolean newGamePressed = false; // pour savoir si le bouton a été pressé
-    private boolean displayMsg = false; // pour savoir si on affiche un message ou pas
+    private int displayMsg = -1; // pour savoir si on affiche un message ou pas : -1 = pas de message, 0 = check, 1 = checkmate
 
     @Override
     public void start(ChessView view) {
@@ -31,7 +31,7 @@ public class GameManager implements ChessController {
     @Override
     public void newGame() {
         newGamePressed = true;
-        displayMsg = false;
+        displayMsg = -1;
         board.resetBoard();
         placePieces();
     }
@@ -98,6 +98,7 @@ public class GameManager implements ChessController {
         if(!newGamePressed) return false;
         boolean valid = false;
 
+
         Square from = board.getSquare(fromX, fromY);
         Square to = board.getSquare(toX, toY);
 
@@ -106,6 +107,7 @@ public class GameManager implements ChessController {
 
         if(board.checkMovement(from, to)) { //si le move est valide on rentre dans le if
             placePiece(from, to); //déplacement de la pièce
+            displayMsg = -1;
 
             //gestion de la potentielle promotion
             if(board.canPromote(to)){
@@ -127,6 +129,8 @@ public class GameManager implements ChessController {
                 board.setCastlingSquares(null);
             }
 
+
+
             //action a effectué à la toute fin du tour
             board.beforeNextTurnAction();
 
@@ -136,13 +140,22 @@ public class GameManager implements ChessController {
             //increment du tour
             board.setTurn(board.getTurn() + 1);
 
-            //on regarde s'il y a un échec au début du tour de l'autre joueur
-            displayMsg = board.isChecked();
+            // on regarde s'il y a un échec au début du tour de l'autre joueur
+            if(board.isCheck()) {
+                board.setThreateningPiece(to.getPiece()); // on stocke la pièce qui met en échec
+                displayMsg = 0;
+                // on regarde si c'est un échec et mat
+                if(board.isCheckmate()){
+                    displayMsg = 1;
+                }
+            }
             valid = true;
         }
 
-        if(displayMsg){
+        if(displayMsg == 0){
             chessView.displayMessage("CHECK!!!");
+        } else if(displayMsg == 1){
+            chessView.displayMessage("CHECKMATE!!!");
         }
         return valid;
     }

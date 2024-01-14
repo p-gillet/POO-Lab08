@@ -118,6 +118,33 @@ public class AppTest
         assertFalse(board.checkMovement(board.getSquare(3, 1), board.getSquare(3, 3)));
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Test de la détection de l'échec et mat
+     */
+    @Test
+    public void testCheckmate() {
+        Board board = new Board();
+        board.setStartingPiecePosition();
+
+        // Déplacement du pion blanc pour ouvrir le chemin de la dame
+        board.movePiece(board.getSquare(4, 1).getPiece(), board.getSquare(4, 3));
+
+        // Déplacement de la dame blanche pour mettre le roi noir en échec
+        board.movePiece(board.getSquare(3, 0).getPiece(), board.getSquare(7, 4));
+
+        // Déplacement du pion noir pour bloquer l'échec
+        board.movePiece(board.getSquare(4, 6).getPiece(), board.getSquare(4, 5));
+
+        // Déplacement de la dame blanche pour mettre le roi noir en échec et mat
+        boolean isCheckmate = board.checkMovement(board.getSquare(7, 4), board.getSquare(5, 6));
+
+        assertTrue(isCheckmate);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * Test du placement de pièce sur une case
      */

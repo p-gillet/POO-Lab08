@@ -27,6 +27,9 @@ public class Board {
     /* pour stocker la dernière pièce jouée */
     private Piece lastPiecePlayed;
 
+    /* pour stocker la pièce qui menace le roi */
+    private Piece threateningPiece;
+
     /* pour stocker les carrés concernés par un roque */
     private Square[] castlingSquares;
 
@@ -100,20 +103,13 @@ public class Board {
      * @return true si le mouvement est possible, false sinon
      */
     public boolean checkMovement(Square from, Square to){
-        //si le carré de départ n'a pas de pièce => false
-        if(from.getPiece() == null){
+        if (from.getPiece() == null ||                        // Si la case de départ est vide
+                from.getPiece().getColor() != colorTurn() ||  // Si la pièce n'appartient pas au joueur actuel
+                (to.getPiece() != null &&                     // Si la case d'arrivée est occupée par une pièce alliée
+                        to.getPiece().getColor() == from.getPiece().getColor())) {
             return false;
         }
 
-        //si le carré de départ est occupé par une pièce adverse => false
-        if(from.getPiece().getColor() != colorTurn()){
-            return false;
-        }
-
-        //si on essaie de manger une pièce alliée => false
-        if(to.getPiece() != null && to.getPiece().getColor() == from.getPiece().getColor()){
-            return false;
-        }
 
         boolean valid = false;
 
@@ -125,7 +121,7 @@ public class Board {
             //on effectue un déplacement factice
             Piece deadPiece = to.getPiece();
             movePieceDummy(from.getPiece(), to);
-            if(isChecked()){ //si le roi allié est en échec le déplacement n'est pas valide
+            if(isCheck()){ //si le roi allié est en échec le déplacement n'est pas valide
                 valid = false;
                 enPassantSquare = null;
             }
@@ -197,7 +193,7 @@ public class Board {
     public void beforeNextTurnAction(){
         if(lastPiecePlayed != null){
             //si la pièce est un pion qui pouvait être capturée en passant et que le tour
-            //est terminé alors il ne peut plus être capturé en passant
+            //est terminé alors, il ne peut plus être capturé en passant
             if(lastPiecePlayed instanceof Pawn pawn && pawn.getEnPassantVictim()){
                 pawn.setEnPassantVictim(false);
             }
@@ -206,16 +202,18 @@ public class Board {
 
     /**
      * Méthode pour tester si le roi actuel est en échec
-     * @return true si check détecté false sinon
+     * @return true si échec détecté false sinon
      */
-    public boolean isChecked(){
-        King kingToCheck;
-        if(kings[0].getColor() == colorTurn()){
-            kingToCheck = kings[0];
-        }else{
-            kingToCheck = kings[1];
-        }
-        return isSquareAttacked(kingToCheck.getSquare());
+    public boolean isCheck(){
+        return isSquareAttacked(getKingToCheck().getSquare());
+    }
+
+    /**
+     * Méthode retournant le roi du joueur actuel
+     * @return roi du joueur actuel
+     */
+    private King getKingToCheck() {
+        return kings[colorTurn().ordinal()];
     }
 
     /**
@@ -228,12 +226,12 @@ public class Board {
         for(Square[] row : board){
             for(Square square : row){
                 if(square.isOccupied() && square.getPiece().getColor() != colorTurn()){
-                    //le pion menace de manière particulière, on le traite séparamment
+                    //le pion menace de manière particulière, on le traite séparément
                     if(square.getPiece() instanceof Pawn pawn){
                         if(pawn.threatensSquare(target)){
                             return true;
                         }
-                        //si une pièce adverse peut se déplacer sur le carré testé alors il est menacé
+                        //si une pièce adverse peut se déplacer sur le carré testé alors, il est menacé
                     } else if (square.getPiece().canMove(target)) {
                         return true;
                     }
@@ -241,6 +239,167 @@ public class Board {
             }
         }
         return false;
+    }
+
+    /**
+     * Méthode pour tester si le roi actuel est en échec et mat
+     * Si le roi est en échec, il a trois possibilités de s'en sortir :
+     * - Se déplacer sur une case qui n'est pas menacée
+     * - La capture de la pièce qui le menace
+     * - Le blocage de la pièce qui le menace par une autre pièce alliée
+     * Si aucune de ces possibilités n'est possible, alors c'est un échec et mat
+     * @return true si échec et mat détecté false sinon
+     */
+    public boolean isCheckmate() {
+        // On vérifie si le roi peut échapper de l'échec
+        if (canKingEscapeCheck()) {
+            return false;
+        }
+        // On vérifie si la pièce menaçante peut être capturée
+        if (canAnyPieceCaptureThreat()) {
+            return false;
+        }
+        // On vérifie si une pièce alliée peut s'interposer entre le roi et la pièce menaçante
+        if (canAnyPieceBlockCheck()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Méthode permettant de vérifier si le roi peut se déplacer pour échapper à l'échec
+     * @return true si le roi à au moins une case où il peut se déplacer false sinon
+     */
+    private boolean canKingEscapeCheck() {
+        King king = getKingToCheck();
+        for (int i = 0; i < SIZE; ++i){
+            for (int j = 0; j < SIZE; ++j){
+                if(checkMovement(king.getSquare(),board[i][j])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Méthode permettant de vérifier si une pièce peut s'interposer entre le roi et la pièce menaçante
+     * @return true si une pièce peut s'interposer false sinon
+     */
+    private boolean canAnyPieceBlockCheck() {
+        // Récupérez les cases entre la menace et le roi
+        Square[] betweenSquares = getSquaresBetweenThreatAndKing();
+        Square[] piecesBetween = new Square[betweenSquares.length];
+        // mettre les pièces alliées entre les carrés dans un tableau
+        for (int i = 0; i < betweenSquares.length; i++) {
+            if (betweenSquares[i].getPiece() != null && betweenSquares[i].getPiece().getColor() == colorTurn()) {
+                piecesBetween[i] = betweenSquares[i];
+            }
+        }
+
+        // vérifier si une pièce alliée peut se déplacer sur une case entre la menace et le roi
+        for (Square pieceBetween : piecesBetween) {
+            if (pieceBetween != null) {
+                for (Square betweenSquare : betweenSquares) {
+                    if (betweenSquare != null) {
+                        if (checkMovement(pieceBetween, betweenSquare)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Méthode permettant de récupérer les cases entre la menace et le roi
+     * @return tableau de cases entre la menace et le roi
+     */
+    private Square[] getSquaresBetweenThreatAndKing() {
+        Square kingsSquare = getKingToCheck().getSquare();
+        Square threateningSquare = getThreateningPiece().getSquare();
+
+        int deltaX = kingsSquare.getX() - threateningSquare.getX();
+        int deltaY = kingsSquare.getY() - threateningSquare.getY();
+
+        int directionX = Integer.compare(deltaX, 0);
+        int directionY = Integer.compare(deltaY, 0);
+
+        int distanceX = Math.abs(deltaX);
+        int distanceY = Math.abs(deltaY);
+
+        // Calcul de la direction pour parcourir les cases entre la menace et le roi
+        int stepX = (distanceX == 0) ? 0 : directionX;
+        int stepY = (distanceY == 0) ? 0 : directionY;
+
+        int totalSteps = Math.max(distanceX, distanceY);
+        Square[] squaresBetween = new Square[totalSteps - 1]; // On exclut le carré de la menace et le carré du roi
+
+        for (int i = 1; i < totalSteps; i++) {
+            int x = threateningSquare.getX() + i * stepX;
+            int y = threateningSquare.getY() + i * stepY;
+            squaresBetween[i - 1] = getSquare(x, y);
+        }
+
+        return squaresBetween;
+    }
+
+
+    /**
+     * Méthode permettant de vérifier si une pièce alliée peut capturer la pièce menaçante
+     * @return true si une pièce peut capturer la pièce menaçante false sinon
+     */
+    private boolean canAnyPieceCaptureThreat() {
+        Piece[] pieces = getAlliedPieces(); // on récupère toutes les pièces alliées
+
+        // on teste si au moins une pièce alliée peut capturer la pièce menaçante
+        for (Piece piece : pieces) {
+            if (piece != null) {
+                if (checkMovement(piece.getSquare(), getThreateningPiece().getSquare())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Méthode pour récupérer toutes les pièces alliées
+     * @return tableau de pièces alliées
+     */
+    private Piece[] getAlliedPieces() {
+        Piece[] pieces = new Piece[16];
+        int index = 0;
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                Square square = board[i][j];
+
+                if (square.getPiece() != null && square.getPiece().getColor() == colorTurn()) {
+                    pieces[index++] = square.getPiece();
+                }
+            }
+        }
+
+        return pieces;
+    }
+
+    /**
+     * Getter de l'attribut threateningPiece
+     * @return la pièce qui menace le roi
+     */
+    public Piece getThreateningPiece() {
+        return threateningPiece;
+    }
+
+    /**
+     * Setter de l'attribut threateningPiece
+     * @param threateningPiece la pièce qui menace le roi
+     */
+    public void setThreateningPiece(Piece threateningPiece) {
+        this.threateningPiece = threateningPiece;
     }
 
     /**
