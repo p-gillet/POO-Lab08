@@ -209,8 +209,8 @@ public class Board {
     }
 
     /**
-     * Méthode retournant le roi du joueur actuel
-     * @return roi du joueur actuel
+     * Méthode retournant le roi du joueur
+     * @return roi du joueur
      */
     private King getKingToCheck() {
         return kings[colorTurn().ordinal()];

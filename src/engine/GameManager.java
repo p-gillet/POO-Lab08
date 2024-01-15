@@ -98,7 +98,6 @@ public class GameManager implements ChessController {
         if(!newGamePressed) return false;
         boolean valid = false;
 
-
         Square from = board.getSquare(fromX, fromY);
         Square to = board.getSquare(toX, toY);
 
@@ -128,8 +127,6 @@ public class GameManager implements ChessController {
                 placePiece(castling[0], castling[1]);
                 board.setCastlingSquares(null);
             }
-
-
 
             //action a effectué à la toute fin du tour
             board.beforeNextTurnAction();

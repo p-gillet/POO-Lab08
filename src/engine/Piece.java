@@ -46,12 +46,12 @@ public abstract class Piece implements ChessView.UserChoice {
     /**
      * Méthode qui affecte une case à la pièce
      * @param s case sur laquelle se trouve la pièce
-     * @param increase est-ce que le nombre de déplacement doit être incrémenté ou non
+     * @param increase est-ce que le nombre de déplacements doit être incrémenté ou non
      */
     public void setSquare(Square s, boolean increase){
         square = s;
         if(increase){
-            nbMove++;
+            ++nbMove;
         }
     }
 

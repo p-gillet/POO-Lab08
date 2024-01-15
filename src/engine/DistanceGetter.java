@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Interface qui permet de calculer les distances x et y entre deux cases
  */
-public interface DistanceCheck {
+public interface DistanceGetter {
 
     /**
      * Méthode qui retourne un point qui a comme coordonnée :

@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Classe représentant le roi
  */
-public class King extends Piece implements DistanceCheck{
+public class King extends Piece implements DistanceGetter {
     
     /**
      * Constructeur de roi

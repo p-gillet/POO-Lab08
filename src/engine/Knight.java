@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Classe représentant le cavalier
  */
-public class Knight extends Piece implements DistanceCheck {
+public class Knight extends Piece implements DistanceGetter {
 
     /**
      * Constructeur de cavalier

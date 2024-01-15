@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Classe représentant le pion
  */
-public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceCheck {
+public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceGetter {
     private final int goesUp; // 1 si le pion va vers le haut, -1 s'il va vers le bas
     private boolean enPassantVictim; // true si le pion est une victime de la prise en passant
 
@@ -54,7 +54,7 @@ public class Pawn extends Piece implements LinearMove, DiagonalMove, DistanceChe
         }
 
         // vérification si le pion peut être mangé avec la prise en passant
-        if (nbMove == 0 && isOnLine(getSquare(), target) && dist.getY() == goesUp * 2 && dist.getX() == 0) {
+        if (nbMove == 0 && isOnLine(getSquare(), target) && dist.getY() == goesUp * 2 && dist.getX() == 0 && !target.isOccupied()) {
             enPassantVictim = true;
             return true;
         }
